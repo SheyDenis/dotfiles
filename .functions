@@ -1,0 +1,26 @@
+#
+# ~/.functions
+#
+
+function pacman(){
+	if [ $# == 1 -a $1 == "-Syuw" ]; then
+		sudo pacman -Syuw
+		return
+	fi
+	if [ $1 == "-Sw" ]; then
+		shift
+		args=$@
+		echo $args | grep -E -- "[^a-zA-Z0-9. -]"
+		if [ $? == 1 ]; then
+			sudo pacman -Sw $args
+		fi
+		return
+	fi
+	if [ $1 == "-S" -o $1 == "-R" -o $1 == "-Rs" -o $1 == "-Syuw" -o $1 == "-U" ]; then
+		args=$@
+		su -c "pacman $args"
+		return
+	fi
+	command pacman $@
+}
+
