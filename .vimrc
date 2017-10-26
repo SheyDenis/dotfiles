@@ -145,3 +145,8 @@ set encoding=utf-8
 "set lazyredraw
 set spell
 
+" Show cursor line and split panes below and to the right
+set cursorline
+set splitbelow
+set splitright
+
