@@ -98,23 +98,11 @@ let g:jedi#popup_select_first=1
 "" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 let g:jedi#show_call_signatures="1"
 
-" Settings for omnicomplete
-" community/vim-omnicppcomplete
-" Better navigating through omnicomplete option list
-" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-"set completeopt=longest,menuone
-function! OmniPopup(action)
-	if pumvisible()
-		if a:action == 'j'
-			return "\<C-N>"
-		elseif a:action == 'k'
-			return "\<C-P>"
-		endif
-	endif
-	return a:action
-endfunction
-inoremap <silent>j <C-R>=OmniPopup('j')<CR>
-inoremap <silent>k <C-R>=OmniPopup('k')<CR>
+" Settings for gitgutter
+" https://github.com/airblade/vim-gitgutter
+let g:gitgutter_map_keys=0
+let g:gitgutter_realtime=1
+let g:gitgutter_eager=1
 
 " Settings for nerdcommenter
 " https://github.com/scrooloose/nerdcommenter
@@ -133,6 +121,24 @@ let g:NERDCompactSexyComs=0
 let g:NERDCommentEmptyLines=1
 " Enable trimming of trailing whitespace when uncommenting
 "let g:NERDTrimTrailingWhitespace=1
+
+" Settings for omnicomplete
+" community/vim-omnicppcomplete
+" Better navigating through omnicomplete option list
+" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
+"set completeopt=longest,menuone
+function! OmniPopup(action)
+	if pumvisible()
+		if a:action == 'j'
+			return "\<C-N>"
+		elseif a:action == 'k'
+			return "\<C-P>"
+		endif
+	endif
+	return a:action
+endfunction
+inoremap <silent>j <C-R>=OmniPopup('j')<CR>
+inoremap <silent>k <C-R>=OmniPopup('k')<CR>
 
 " Misc
 set encoding=utf-8
