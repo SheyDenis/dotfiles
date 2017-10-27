@@ -148,3 +148,13 @@ set cursorline
 set splitbelow
 set splitright
 
+" Settings for airline
+" https://github.com/vim-airline/vim-airline
+" community/vim-airline
+set laststatus=2
+let g:airline#extensions#tabline#enabled=1
+
+" Language specific settings
+autocmd FileType python setl noexpandtab shiftwidth=4 softtabstop=0 tabstop=4
+autocmd FileType php setl colorcolumn=120
+
