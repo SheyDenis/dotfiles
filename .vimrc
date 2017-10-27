@@ -3,11 +3,12 @@
 "
 
 " Set clipboard
-set clipboard=unnamed
+" Arch's vim package comes without clipboard support, so no point setting it.
+"setg clipboard=unnamed
 
 " Mouse and backspace
-set mouse=a
-set bs=2	" Make backspace normal
+setg mouse=a
+setg bs=2
 
 " Rebind <leader> key
 let mapleader = ","
@@ -38,8 +39,8 @@ vnoremap > >gv
 
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 
 " Color scheme
 " mkdir -p ~/.vim/colors && cd ~/.vim/colors
@@ -53,8 +54,7 @@ filetype plugin indent on
 syntax on
 
 " Showing line numbers and length
-highlight ColorColumn ctermbg=233
-"highlight ColorColumn ctermbg=gray ctermfg=red guibg=gray guifg=red
+highlight ColorColumn ctermbg=darkgrey
 set breakindent
 set breakindentopt=sbr
 set colorcolumn=80
@@ -75,6 +75,7 @@ set hlsearch
 set ignorecase
 set incsearch
 set smartcase
+highlight Search cterm=none ctermbg=grey ctermfg=black
 
 " Disable backup and swap files
 set nobackup
@@ -82,7 +83,7 @@ set nowritebackup
 set noswapfile
 
 " Settings for ctrlp
-" https://github.com/kien/ctrlp.vim
+" https://github.com/ctrlpvim/ctrlp.vim
 " community/vim-ctrlp
 let g:ctrlp_max_height = 10
 "" set wildignore+=*.pyc
@@ -93,10 +94,11 @@ let g:ctrlp_max_height = 10
 " https://github.com/davidhalter/jedi-vim
 " community/vim-jedi
 let g:jedi#usages_command="<leader>z"
-let g:jedi#popup_on_dot=1
+let g:jedi#popup_on_dot=0
 let g:jedi#popup_select_first=1
 "" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 let g:jedi#show_call_signatures="1"
+let g:jedi#use_splits_not_buffers="right"
 
 " Settings for gitgutter
 " https://github.com/airblade/vim-gitgutter
@@ -111,8 +113,9 @@ let g:gitgutter_eager=1
 let g:NERDSpaceDelims=1
 " Use compact syntax for prettified multi-line comments
 let g:NERDCompactSexyComs=0
-" Align line-wise comment delimiters flush left instead of following code indentation
-"let g:NERDDefaultAlign='left'
+" Align line-wise comment delimiters flush left instead of following code
+" indentation
+let g:NERDDefaultAlign='left'
 " Set a language to use its alternate delimiters by default
 "let g:NERDAltDelims_java=1
 " Add your own custom formats or override the defaults
@@ -121,29 +124,24 @@ let g:NERDCompactSexyComs=0
 let g:NERDCommentEmptyLines=1
 " Enable trimming of trailing whitespace when uncommenting
 "let g:NERDTrimTrailingWhitespace=1
+" For some reason Vim / terminal sees <C-/> as <C-_> .
+nmap <C-_> <leader>c<space>
 
 " Settings for omnicomplete
 " community/vim-omnicppcomplete
-" Better navigating through omnicomplete option list
-" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
-"set completeopt=longest,menuone
-function! OmniPopup(action)
-	if pumvisible()
-		if a:action == 'j'
-			return "\<C-N>"
-		elseif a:action == 'k'
-			return "\<C-P>"
-		endif
-	endif
-	return a:action
-endfunction
-inoremap <silent>j <C-R>=OmniPopup('j')<CR>
-inoremap <silent>k <C-R>=OmniPopup('k')<CR>
+" For some reason Vim / terminal sees <C-space> as <C-@> .
+inoremap <C-@> <C-x><C-o>
 
-" Misc
+" Set file encoding
 set encoding=utf-8
-"set lazyredraw
+
+" Under-powered laptop seems to scroll the files better when scrolling a long
+" way.
+set lazyredraw
+
+" Spellcheck
 set spell
+highlight SpellBad cterm=underline ctermbg=none ctermfg=red
 
 " Show cursor line and split panes below and to the right
 set cursorline

@@ -13,6 +13,7 @@ alias ls="ls --color=auto -hF"
 alias mv="mv -i"
 alias q="exit"
 alias rm="rm -I"
+alias tmux="tmux -2"
 
 # sudo aliases
 alias sudo_rkhunter_update_sk_c="sudo rkhunter --update -sk -c"
