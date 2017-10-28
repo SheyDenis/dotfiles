@@ -24,14 +24,15 @@ inoremap <Down> <NOP>
 inoremap <Left> <NOP>
 inoremap <Right> <NOP>
 " Bindings for tab switching
-noremap <C-h> <esc>:tabprevious<CR>
-noremap <C-k> <esc>:tabnew<CR>
-noremap <C-l> <esc>:tabnext<CR>
+nnoremap <leader>h <esc>:tabprevious<CR>
+nnoremap <leader>j <esc>:tabclose<CR>
+nnoremap <leader>k <esc>:tabnew<CR>
+nnoremap <leader>l <esc>:tabnext<CR>
 " Bindings for splits switching
-nnoremap <leader>h <C-w><C-h>
-nnoremap <leader>j <C-w><C-j>
-nnoremap <leader>k <C-w><C-k>
-nnoremap <leader>l <C-w><C-l>
+noremap <C-h> <C-w><C-h>
+noremap <C-j> <C-w><C-j>
+noremap <C-k> <C-w><C-k>
+noremap <C-l> <C-w><C-l>
 
 " Code block indentation
 vnoremap < <gv
@@ -85,10 +86,11 @@ set noswapfile
 " Settings for ctrlp
 " https://github.com/ctrlpvim/ctrlp.vim
 " community/vim-ctrlp
-let g:ctrlp_max_height = 10
-"" set wildignore+=*.pyc
-"" set wildignore+=*_build/*
-"" set wildignore+=*/coverage/*
+let g:ctrlp_max_height = 15
+" set wildignore+=*.pyc
+" set wildignore+=*_build/*
+" set wildignore+=*/coverage/*
+let g:ctrlp_working_path_mode = ''
 
 " Settings for jedi-vim
 " https://github.com/davidhalter/jedi-vim
