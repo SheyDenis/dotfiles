@@ -11,7 +11,7 @@ setg mouse=a
 setg bs=2
 
 " Rebind <leader> key
-let mapleader = ","
+let mapleader=","
 
 " Disable arrow keys in escape more
 noremap <Up> <NOP>
@@ -86,11 +86,11 @@ set noswapfile
 " Settings for ctrlp
 " https://github.com/ctrlpvim/ctrlp.vim
 " community/vim-ctrlp
-let g:ctrlp_max_height = 15
+let g:ctrlp_max_height=15
 " set wildignore+=*.pyc
 " set wildignore+=*_build/*
 " set wildignore+=*/coverage/*
-let g:ctrlp_working_path_mode = ''
+let g:ctrlp_working_path_mode=""
 
 " Settings for jedi-vim
 " https://github.com/davidhalter/jedi-vim
@@ -117,11 +117,11 @@ let g:NERDSpaceDelims=1
 let g:NERDCompactSexyComs=0
 " Align line-wise comment delimiters flush left instead of following code
 " indentation
-let g:NERDDefaultAlign='left'
+let g:NERDDefaultAlign="left"
 " Set a language to use its alternate delimiters by default
 "let g:NERDAltDelims_java=1
 " Add your own custom formats or override the defaults
-"let g:NERDCustomDelimiters={ 'c': { 'left': '/**','right': '*/' } }
+"let g:NERDCustomDelimiters={ "c": { "left": "/**","right": "*/" } }
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines=1
 " Enable trimming of trailing whitespace when uncommenting
@@ -155,6 +155,15 @@ set splitright
 " community/vim-airline
 set laststatus=2
 let g:airline#extensions#tabline#enabled=1
+
+" Settings for syntastic
+" https://github.com/vim-syntastic/syntastic
+" community/vim-syntastic
+let g:syntastic_auto_loc_list=0
+let g:syntastic_check_on_open=0
+let g:syntastic_check_on_wq=0
+let g:syntastic_python_checkers=["pep8"]
+let g:syntastic_python_pep8_args=""
 
 " Language specific settings
 " autocmd FileType python setl noexpandtab shiftwidth=4 softtabstop=0 tabstop=4
