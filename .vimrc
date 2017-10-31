@@ -166,7 +166,9 @@ let g:syntastic_python_checkers=["pep8"]
 let g:syntastic_python_pep8_args=""
 
 " Language specific settings
-" autocmd FileType python setl noexpandtab shiftwidth=4 softtabstop=0 tabstop=4
-" autocmd FileType php setl colorcolumn=120 expandtab shiftwidth=4 tabstop=4 softtabstop=0
 autocmd FileType php setl colorcolumn=120
+autocmd FileType python setl colorcolumn=80
+autocmd FileType php setl noexpandtab shiftwidth=4 softtabstop=0 tabstop=4
+autocmd FileType python setl noexpandtab shiftwidth=4 softtabstop=0 tabstop=4
+autocmd FileType php,python setl foldmethod=indent foldnestmax=2
 
