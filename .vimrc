@@ -7,7 +7,7 @@
 "setg clipboard=unnamed
 
 " Mouse and backspace
-setg mouse=a
+setg mouse=
 setg bs=2
 
 " Rebind <leader> key
@@ -63,7 +63,7 @@ set linebreak
 set number
 set ruler
 set showbreak=>>>
-set wrap
+set nowrap
 
 " Tabs and spaces
 set noexpandtab
@@ -83,6 +83,14 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" Auto match pairs
+inoremap (<CR> (<CR>)<esc>O
+inoremap (;<CR> (<CR>);<esc>O
+inoremap [<CR> [<CR>]<esc>O
+inoremap [;<CR> [<CR>];<esc>O
+inoremap {<CR> {<CR>}<esc>O
+inoremap {;<CR> {<CR>};<esc>O
+
 " Settings for ctrlp
 " https://github.com/ctrlpvim/ctrlp.vim
 " community/vim-ctrlp
@@ -99,12 +107,12 @@ let g:jedi#usages_command="<leader>z"
 let g:jedi#popup_on_dot=0
 let g:jedi#popup_select_first=1
 "" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-let g:jedi#show_call_signatures="1"
+let g:jedi#show_call_signatures="0"
 let g:jedi#use_splits_not_buffers="right"
 
 " Settings for gitgutter
 " https://github.com/airblade/vim-gitgutter
-let g:gitgutter_map_keys=0
+let g:gitgutter_map_keys=1
 let g:gitgutter_realtime=1
 let g:gitgutter_eager=1
 
@@ -156,19 +164,11 @@ set splitright
 set laststatus=2
 let g:airline#extensions#tabline#enabled=1
 
-" Settings for syntastic
-" https://github.com/vim-syntastic/syntastic
-" community/vim-syntastic
-let g:syntastic_auto_loc_list=0
-let g:syntastic_check_on_open=0
-let g:syntastic_check_on_wq=0
-let g:syntastic_python_checkers=["pep8"]
-let g:syntastic_python_pep8_args=""
-
 " Language specific settings
 autocmd FileType php setl colorcolumn=120
 autocmd FileType python setl colorcolumn=80
-autocmd FileType php setl noexpandtab shiftwidth=4 softtabstop=0 tabstop=4
-autocmd FileType python setl noexpandtab shiftwidth=4 softtabstop=0 tabstop=4
+autocmd FileType php setl expandtab shiftwidth=4 softtabstop=0 tabstop=8
+autocmd FileType python setl expandtab shiftwidth=4 softtabstop=0 tabstop=8
 autocmd FileType php,python setl foldmethod=indent foldnestmax=2
+autocmd FileType php,python setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
 
