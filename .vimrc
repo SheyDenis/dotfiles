@@ -167,8 +167,9 @@ let g:airline#extensions#tabline#enabled=1
 " Language specific settings
 autocmd FileType php setl colorcolumn=120
 autocmd FileType python setl colorcolumn=80
-autocmd FileType php setl expandtab shiftwidth=4 softtabstop=0 tabstop=8
-autocmd FileType python setl expandtab shiftwidth=4 softtabstop=0 tabstop=8
+autocmd FileType php setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType python setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType php,python setl autoindent
 autocmd FileType php,python setl foldmethod=indent foldnestmax=2
 autocmd FileType php,python setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
 
