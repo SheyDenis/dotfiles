@@ -34,6 +34,9 @@ noremap <C-j> <C-w><C-j>
 noremap <C-k> <C-w><C-k>
 noremap <C-l> <C-w><C-l>
 
+" This is unnecessary 
+inoremap <C-@> <NOP>
+
 " Code block indentation
 vnoremap < <gv
 vnoremap > >gv
@@ -51,7 +54,8 @@ set t_Co=256
 
 " Enable syntax highlighting
 filetype off
-filetype plugin indent on
+filetype plugin on
+filetype indent off
 syntax on
 
 " Showing line numbers and length
@@ -103,12 +107,12 @@ let g:ctrlp_working_path_mode=""
 " Settings for jedi-vim
 " https://github.com/davidhalter/jedi-vim
 " community/vim-jedi
-let g:jedi#usages_command="<leader>z"
-let g:jedi#popup_on_dot=0
-let g:jedi#popup_select_first=1
+" let g:jedi#usages_command="<leader>z"
+" let g:jedi#popup_on_dot=0
+" let g:jedi#popup_select_first=1
 "" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-let g:jedi#show_call_signatures="0"
-let g:jedi#use_splits_not_buffers="right"
+" let g:jedi#show_call_signatures="0"
+" let g:jedi#use_splits_not_buffers="right"
 
 " Settings for gitgutter
 " https://github.com/airblade/vim-gitgutter
@@ -140,7 +144,7 @@ nmap <C-_> <leader>c<space>
 " Settings for omnicomplete
 " community/vim-omnicppcomplete
 " For some reason Vim / terminal sees <C-space> as <C-@> .
-inoremap <C-@> <C-x><C-o>
+" inoremap <C-@> <C-x><C-o>
 
 " Set file encoding
 set encoding=utf-8
@@ -169,7 +173,7 @@ autocmd FileType php setl colorcolumn=120
 autocmd FileType python setl colorcolumn=80
 autocmd FileType php setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
 autocmd FileType python setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
-autocmd FileType php,python setl autoindent
+autocmd FileType php,python setl autoindent indentexpr&
 autocmd FileType php,python setl foldmethod=indent foldnestmax=2
 autocmd FileType php,python setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
 

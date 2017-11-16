@@ -5,5 +5,5 @@
 export BROWSER="chromium"
 export DE="mate"
 export EDITOR="/usr/bin/vim"
-export PAGER="/usr/bin/vimpager"
+export PAGER="/usr/bin/less"
 
