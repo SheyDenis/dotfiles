@@ -16,5 +16,4 @@
 	email = [email]
 
 [credential]
-	helper = cache
-
+	helper = /usr/lib/git-core/git-credential-gnome-keyring

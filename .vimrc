@@ -34,7 +34,7 @@ noremap <C-j> <C-w><C-j>
 noremap <C-k> <C-w><C-k>
 noremap <C-l> <C-w><C-l>
 
-" This is unnecessary 
+" This is unnecessary
 inoremap <C-@> <NOP>
 
 " Code block indentation
@@ -55,7 +55,7 @@ set t_Co=256
 " Enable syntax highlighting
 filetype off
 filetype plugin on
-filetype indent off
+filetype indent on
 syntax on
 
 " Showing line numbers and length
@@ -169,11 +169,16 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled=1
 
 " Language specific settings
+" PHP
 autocmd FileType php setl colorcolumn=120
-autocmd FileType python setl colorcolumn=80
 autocmd FileType php setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType php setl autoindent indentexpr&
+autocmd FileType php setl foldmethod=indent foldnestmax=2
+autocmd FileType php setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
+" Python
+autocmd FileType python setl autoindent
+autocmd FileType python setl colorcolumn=80
 autocmd FileType python setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
-autocmd FileType php,python setl autoindent indentexpr&
-autocmd FileType php,python setl foldmethod=indent foldnestmax=2
-autocmd FileType php,python setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
+autocmd FileType python setl foldmethod=indent foldnestmax=2
+autocmd FileType python setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
 
