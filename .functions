@@ -23,11 +23,13 @@ function pacman(){
 		return
 	fi
 	command pacman $@
+	return
 }
 
 function beep(){
 	# Makes the terminal window label in the application list to bold and beep.
 	[ -n "$WINDOWID" ] && wmctrl -i -r "$WINDOWID" -b add,demands_attention
 	command beep -l 500
+	return
 }
 

@@ -2,24 +2,24 @@
 # ~/.aliases
 #
 
-alias beep="beep -l 500"
-alias cp="cp -i"
-alias df="df -h"
-alias dirs="dirs -v"
-alias du="du -h"
-alias free="free -h"
-alias grep="grep --color=auto"
-alias ls="ls --color=auto -hF"
-alias mv="mv -i"
-alias q="exit"
-alias rm="rm -I"
-alias tmux="tmux -2"
+alias beep='beep -l 500'
+alias cp='cp -i'
+alias df='df -h'
+alias dirs='dirs -v'
+alias du='du -h'
+alias free='free -h'
+alias grep='grep --color=auto'
+alias ls='ls --color=auto -hF'
+alias mv='mv -i'
+alias q='exit'
+alias rm='rm -I'
+alias tmux='tmux -2'
 
 # sudo aliases
-alias sudo_rkhunter_update_sk_c="sudo rkhunter --update -sk -c"
-alias sudo_clamscan_i_r_root="sudo clamscan -i -r /"
-alias freshclam="sudo freshclam"
-alias gsmartcontrol="sudo gsmartcontrol"
-alias iotop="sudo iotop"
-alias iotop_oPa="sudo iotop --only --processes --accumulated"
+alias sudo_rkhunter_update_sk_c='sudo rkhunter --update -sk -c'
+alias sudo_clamscan_i_r_root='sudo clamscan -i -r /'
+alias freshclam='sudo freshclam'
+alias gsmartcontrol='sudo gsmartcontrol'
+alias iotop='sudo iotop'
+alias iotop_oPa='sudo iotop --only --processes --accumulated'
 
