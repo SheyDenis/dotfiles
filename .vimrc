@@ -20,8 +20,8 @@ Plugin 'gregsexton/matchtag'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'michalbachowski/vim-wombat256mod'
 Plugin 'nvie/vim-flake8'
+Plugin 'posva/vim-vue'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'storyn26383/vim-vue'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -189,7 +189,7 @@ autocmd FileType javascript setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
 autocmd FileType javascript setl foldmethod=indent foldnestmax=2
 autocmd FileType javascript setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
 " PHP
-autocmd FileType php setl autoindent indentexpr&
+autocmd FileType php setl autoindent
 autocmd FileType php setl colorcolumn=120 textwidth=119
 autocmd FileType php setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
 autocmd FileType php setl foldmethod=indent foldnestmax=2
