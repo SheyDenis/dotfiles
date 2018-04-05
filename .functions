@@ -28,8 +28,11 @@ function pacman(){
 
 function beep(){
 	# Makes the terminal window label in the application list to bold and beep.
+	if [ -z "$(echo $@ | grep "\-l" )" ]; then
+		local DEFAULT_LENGTH="-l 500"
+	fi
 	[ -n "$WINDOWID" ] && wmctrl -i -r "$WINDOWID" -b add,demands_attention
-	command beep -l 500
+	command beep $@ $DEFAULT_LENGTH
 	return
 }
 
