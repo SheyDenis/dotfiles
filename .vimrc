@@ -188,6 +188,12 @@ autocmd FileType javascript setl colorcolumn=120 textwidth=119
 autocmd FileType javascript setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
 autocmd FileType javascript setl foldmethod=indent foldnestmax=2
 autocmd FileType javascript setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
+" Perl
+autocmd FileType perl setl autoindent
+autocmd FileType perl setl colorcolumn=80 textwidth=79
+autocmd FileType perl setl expandtab shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType perl setl foldmethod=indent foldnestmax=2
+autocmd FileType perl setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
 " PHP
 autocmd FileType php setl autoindent
 autocmd FileType php setl colorcolumn=120 textwidth=119
