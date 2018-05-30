@@ -31,3 +31,7 @@ else
 	fortune
 fi
 
+HISTSIZE=5000
+HISTFILESIZE=10000
+shopt -s histappend
+
