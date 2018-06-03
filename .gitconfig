@@ -16,4 +16,4 @@
 	email = [email]
 
 [credential]
-	helper = /usr/lib/git-core/git-credential-gnome-keyring
+	helper = /usr/lib/git-core/git-credential-libsecret
