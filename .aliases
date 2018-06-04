@@ -12,7 +12,7 @@ alias grep='grep --color=auto'
 alias ls='ls --color=auto -hF'
 alias mv='mv -i'
 alias q='exit'
-alias rm='rm -I'
+alias rm='rm -i'
 alias tmux='tmux -2'
 
 # sudo aliases
