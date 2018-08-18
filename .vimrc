@@ -13,6 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'alfredodeza/jacinto.vim'
 Plugin 'alvan/vim-closetag'
 Plugin 'chiel92/vim-autoformat'
 Plugin 'ctrlpvim/ctrlp.vim'
