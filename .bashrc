@@ -31,8 +31,10 @@ else
 	fortune
 fi
 
-HISTSIZE=5000
-HISTFILESIZE=10000
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+export HISTCONTROL=ignoreboth # ignorespace:ignoredups:ignoreboth:erasedups
+export HISTTIMEFORMAT='[%Y-%m-%d %H:%M:%S] '
 shopt -s histappend
 
 set -o noclobber
