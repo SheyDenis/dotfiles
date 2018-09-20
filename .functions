@@ -29,7 +29,7 @@ function pacman(){
 function blink(){
 	# Makes the terminal window label in the application list to bold.
 
-	window_title="$(wmctrl -l | grep "$(printf '0x0%x' ${WINDOWID})" | awk '{print $NF}')"
+	window_title="$(wmctrl -l | grep "$(printf '0x0%x' ${WINDOWID})" | awk '{for (i = 4; i <= NF; i++){ printf "%s" $i, OFS} print "" }')"
 	if [ -z "${window_title}" ]; then
 		window_title="Window title missing!"
 	fi
