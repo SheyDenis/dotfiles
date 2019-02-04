@@ -12,7 +12,7 @@ unset file
 # Start tmux on login shell
 shopt -q login_shell && [ -z "$TMUX" ] && exec tmux
 
-PS1='[\u@\h \W]\$ '
+PS1='[${?}][\u@\h \W]\$ '
 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
@@ -24,12 +24,7 @@ complete -c man which whereis
 
 # MOTD
 #cat /etc/MOTD
-
-if [ $(( RANDOM % 10 )) -ge 5 ]; then
-	cowfortune
-else
-	fortune
-fi
+fortune -o
 
 export HISTSIZE=5000
 export HISTFILESIZE=10000

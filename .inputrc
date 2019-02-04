@@ -7,8 +7,8 @@ set input-meta on
 set convert-meta off
 set output-meta on
 
-set editing-mode vi
-set keymap vi-command
+# set editing-mode vi
+# set keymap vi-command
 
 # Enable faster completion
 #set show-all-if-ambiguous on
