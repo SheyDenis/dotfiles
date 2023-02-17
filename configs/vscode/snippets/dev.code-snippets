@@ -1,0 +1,10 @@
+{
+	"Dev Marker": {
+		"prefix": "ddm",
+		"body": "${LINE_COMMENT:#} DEV MARKER - ${1:REMOVE THIS}"
+	},
+	"Dev Marker Remove": {
+		"prefix": "ddmr",
+		"body": "${LINE_COMMENT:#} DEV MARKER - REMOVE THIS"
+	}
+}

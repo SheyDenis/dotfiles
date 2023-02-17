@@ -228,4 +228,3 @@ autocmd FileType yaml setl colorcolumn=120 textwidth=119
 autocmd FileType yaml setl expandtab shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType yaml setl foldmethod=indent foldnestmax=2
 autocmd FileType yaml setl list listchars=tab:┊\ ,trail:·,eol:↲,extends:>,precedes:<
-

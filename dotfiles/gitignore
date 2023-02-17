@@ -1,0 +1,21 @@
+#
+# ~/.gitignore
+#
+
+# Binaries
+
+# Build
+.build/
+build/
+
+# IDE
+.idea/
+http-client.env.json
+http-client.private.env.json
+
+# Misc
+*.lock
+*.log
+
+# Python
+.venv/

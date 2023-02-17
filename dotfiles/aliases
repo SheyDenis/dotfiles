@@ -1,0 +1,23 @@
+#
+# ~/.aliases
+#
+
+alias cp='cp -i'
+alias df='df -h'
+alias dirs='dirs -v'
+alias du='du -h'
+alias free='free -h'
+alias grep='grep --color=auto'
+alias ls='ls --color=auto -hF'
+alias mv='mv -i'
+alias q='exit'
+alias rm='rm -i'
+
+# sudo aliases
+
+# Load more aliases
+if [[ -d "${HOME}/.local/aliases" ]]; then
+    for f in $(find "${HOME}/.local/aliases" -maxdepth 2 -type f); do
+        source "${f}"
+    done
+fi
