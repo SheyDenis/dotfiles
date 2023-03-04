@@ -45,10 +45,25 @@ Files containing shell functions.
 - [ ] Add git hooks to dotfiles repo.
 - [ ] vscode
   - [ ] Auto enable pipenv env in terminal.
+  - [ ] Don't restore history on opening folder.
   - [ ] Show VSC gutter colors for staged files too.
   - [ ] Perform "external tools" like actions on file.
   - [ ] VSCode spellcheck.
   - [ ] Keymap config.
   - [ ] List of extensions to install.
-  - [ ] markdown formatter.
+    - [ ] Formatters:
+      - [ ] cmake
+      - [ ] cpp
+      - [ ] dockerfile
+      - [ ] groovy
+      - [ ] jenkinsfile
+      - [ ] json
+      - [ ] markdown
+      - [ ] python
+      - [ ] toml
+      - [ ] yaml
+    - [ ] Sorters:
+      - [ ] json
+      - [ ] toml
+      - [ ] yaml
   - [ ] Make vscode snippets use nested snippets.
