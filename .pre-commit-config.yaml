@@ -1,0 +1,25 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: check-added-large-files
+  - id: check-shebang-scripts-are-executable
+  - id: check-json
+  - id: check-yaml
+  - id: double-quote-string-fixer
+  - id: end-of-file-fixer
+  - id: no-commit-to-branch
+    args: [--branch, master]
+  - id: trailing-whitespace
+- repo: https://github.com/SheyDenis/pre-commit-hooks
+  rev: 6ec2d700d12690a063f7f0467ab51bf85e32df43
+  hooks:
+  - id: dev-marker-hook
+  - id: isort-hook
+  - id: mypy-hook
+  - id: pylint-hook
+  - id: symbolic-links-hook
+#  - id: xenon-hook
+#  - id: yapf-hook

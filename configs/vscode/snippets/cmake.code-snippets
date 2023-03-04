@@ -1,0 +1,10 @@
+{
+    "dl": {
+        "scope": "cmake",
+        "body": "MESSAGE(STATUE \"${1} ${${1}}\")  # DEV MARKER - REMOVE THIS"
+    },
+    "dlf": {
+        "scope": "cmake",
+        "body": "MESSAGE(FATAL_ERROR \"${1} ${${1}}\")  # DEV MARKER - REMOVE THIS"
+    }
+}

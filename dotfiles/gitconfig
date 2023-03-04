@@ -3,18 +3,21 @@
 #
 
 [color]
-	branch = auto
-	diff = auto
-	status = auto
-	ui = auto
+    branch = auto
+    diff = auto
+    status = auto
+    ui = auto
 
 [core]
-	excludesfile = ~/.gitignore
-	hooksPath = ~/git/templates/hooks/
+    excludesfile = ~/.gitignore
+    # hooksPath = ~/git/templates/hooks/
 
 [user]
-	name = <name>
-	email = <email>
+    name = <name>
+    email = <email>
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
 
 [init]
-	templatedir = ~/git/templates/
+    templatedir = ~/git/templates/

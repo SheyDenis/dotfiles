@@ -6,5 +6,9 @@
 	"Dev Marker Remove": {
 		"prefix": "ddmr",
 		"body": "${LINE_COMMENT:#} DEV MARKER - REMOVE THIS"
+	},
+	"Dev Marker TODO": {
+		"prefix": "ddmt",
+		"body": "${LINE_COMMENT:#} DEV MARKER - TODO"
 	}
 }

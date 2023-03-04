@@ -46,3 +46,5 @@ export HISTTIMEFORMAT='[1%Y-%m-%d %H:%M:%S] '
 shopt -s histappend
 
 set -o noclobber
+
+export PIPENV_VENV_IN_PROJECT=1

@@ -8,6 +8,7 @@ PLATFORM=''
 
 case "${OSTYPE}" in
 'linux'*)
+    s
     PLATFORM='linux'
     ;;
 'darwin'*)
@@ -76,9 +77,9 @@ function run_cmd() {
 function usage() {
     # TODO - Complete this
     usage_str="
-        Usage: ./$(basename $0)
+        Usage: ./$(basename ${0})
 "
-    echo $usage_str 1>&2
+    echo ${usage_str} 1>&2
 }
 
 DRY_RUN_SET=false
@@ -120,7 +121,7 @@ done
 unset DRY_RUN_SET_ERR
 unset DRY_RUN_SET
 
-PLATFORM_CONFIG_PATH_VSCODE=$(get_value_for_platform "${HOME}/.config/Code - OSS/User" 'toast') # TODO - Find out what goes here for Darwin.
+PLATFORM_CONFIG_PATH_VSCODE=$(get_value_for_platform "${HOME}/.config/Code - OSS/User" "${HOME}/Library/Application Support/Code/User")
 
 # Setup basic directory paths first.
 echo_header 'Creating env directories'
