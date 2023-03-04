@@ -1,0 +1,6 @@
+# brew aliases
+
+alias brew-cleanup-check='brew cleanup --dry-run && brew autoremove --dry-run'
+alias brew-cleanup='brew cleanup && brew autoremove'
+alias brew-update='brew update && brew outdated'
+alias brew-upgrade='nice -n 20 upgrade && brew-cleanup-check ; notify "Brew upgrade completed" ; echo "\n\n ${fg[red]}Remember to also upgrade aws-cli!${reset_color}"'

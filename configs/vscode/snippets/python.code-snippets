@@ -1,0 +1,25 @@
+{
+    "Dev Logger Import": {
+        "prefix": "dfi",
+        "scope": "python",
+        "body": [
+            "import logging # DEV MARKER - REMOVE THIS",
+            "from pprint import pformat # DEV MARKER - REMOVE THIS"
+        ]
+    },
+    "Dev Logger Title": {
+        "prefix": "dlt",
+        "scope": "python",
+        "body": "logging.log(9001, '[DEBUG:%s] ${1}', __file__)  # DEV MARKER - REMOVE THIS"
+    },
+    "Dev Logger": {
+        "prefix": "dl",
+        "scope": "python",
+        "body": "logging.log(9001, '[DEBUG:%s] ${1} - %s', __file__, ${1})  # DEV MARKER - REMOVE THIS"
+    },
+    "Dev Logger Pretty": {
+        "prefix": "dfl",
+        "scope": "python",
+        "body": "logging.log(9001, '[DEBUG:%s] ${1} - %s', __file__, pformat(${1}))  # DEV MARKER - REMOVE THIS"
+    }
+}

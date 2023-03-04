@@ -1,0 +1,23 @@
+#
+# ~/.gitconfig
+#
+
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+    ui = auto
+
+[core]
+    excludesfile = ~/.gitignore
+    # hooksPath = ~/git/templates/hooks/
+
+[user]
+    name = <name>
+    email = <email>
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[init]
+    templatedir = ~/git/templates/

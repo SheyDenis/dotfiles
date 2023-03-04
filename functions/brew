@@ -1,0 +1,11 @@
+# brew functions
+
+function brew-check-linked() {
+    if [[ $(brew unlink --dry-run "$1" | wc -l | grep -oE "\d+") > 1 ]]; then
+        echo "+ $1 is linked"
+        return 0
+    else
+        echo "- $1 is not linked"
+        return 1
+    fi
+}

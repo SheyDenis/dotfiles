@@ -1,0 +1,46 @@
+#
+# ~/.gitignore
+#
+
+# Archives
+*.a
+*.dylib
+*.gz
+*.so
+*.tar
+*.tar.gz
+
+# Backups
+*.bac
+*.swap
+*~
+
+# Binaries
+
+# Build
+.build/
+build/
+cdk.out/
+cmake-build-*/
+
+# IDE
+.github/
+.idea/
+.vscode/
+http-client.env.json
+http-client.private.env.json
+
+# Misc
+.*/
+.DS_Store/
+*.log
+
+# Python
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.venv/
+*.egg-info/
+*.whl
+dist/
+venv/

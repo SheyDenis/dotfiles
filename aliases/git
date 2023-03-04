@@ -1,0 +1,14 @@
+# git aliases
+
+alias git-list-gone='git for-each-ref --format "%(refname) %(upstream:track)" refs/heads | grep "\[gone\]" | sed -e "s/refs\/heads\///" -e "s/ \[gone\]//"'
+
+if [[ "$(basename ${0})" == 'bash' ]]; then
+    alias git-confirm-clear-gone='echo -e "About to clear gone branches:\n\n$(git-list-gone)\n" ; read -p "Continue?" "RES_"'
+elif [[ "$(basename ${0})" == 'zsh' ]]; then
+    alias git-confirm-clear-gone='echo -e "About to clear gone branches:\n\n$(git-list-gone)\n" ; read "RES_?Continue?"'
+else
+    echo "Unsupported terminal [$(basename ${0})]"
+    alias git-confirm-clear-gone='false'
+fi
+
+alias git-clear-gone='git-confirm-clear-gone && echo -e "\n" ; [[ "${RES_}" =~ ^[Yy]$ ]] && echo "Clearing gone branches" && for b in $(git-list-gone); do git branch -D "${b}"; done ; echo "Remaining branches:" git branch -a | cat --'

@@ -1,0 +1,17 @@
+{
+    "dfi": {
+        "prefix": "dfi",
+        "scope": "c",
+        "body": "#include <stdio.h> // DEV MARKER - REMOVE THIS"
+    },
+    "dl": {
+        "prefix": "dl",
+        "scope": "c",
+        "body": "fprintf(stderr, \"[DEBUG][%s:%d] ${1}: '%s'\n\" __FILE__, __LINE__, ${1}); // DEV MARKER - REMOVE THIS"
+    },
+    "dlt": {
+        "prefix": "dlt",
+        "scope": "c",
+        "body": "fprintf(stderr, \"[DEBUG][%s:%d] ${1}\n\" __FILE__, __LINE__); // DEV MARKER - REMOVE THIS"
+    }
+}

@@ -1,0 +1,37 @@
+#
+# ~/.xbindkeysrc
+#
+
+# Logitech MX Master 2S
+#"sleep 0.1 && xdotool key Control+Shift+F1"
+#   Control+Mod2+Alt_L
+
+# Logitech M705
+#"xdotool key Control+Prior"
+#   b:6
+#"xdotool key Control+Next"
+#   b:7
+
+# Logitech G604
+"xdotool key Control+Shift+t"
+    b:8  # G4
+"xdotool key Return"
+    b:9  # G5
+"xdotool key F5"
+    b:10  # G6
+"xdotool key Control+w"
+    b:11  # G7
+"xdotool key Control+Prior"
+    b:12  # G8
+"xdotool key Control+Next"
+    b:13  # G9
+# "xdotool key XF86AudioLowerVolume"
+"xdotool key Control+XF86AudioMute"
+    b:14  # Minus
+# "xdotool key XF86AudioRaiseVolume"
+"xdotool key Tab"
+    b:15  # Plus
+"xdotool key Alt+Left"
+    b:16  # Wheel left
+"xdotool key Alt+Right"
+    b:17  # Wheel right
