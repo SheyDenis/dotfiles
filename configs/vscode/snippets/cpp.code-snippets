@@ -1,17 +1,17 @@
 {
     "dfi": {
         "prefix": "dfi",
-        "scope": "c++",
+        "scope": "cpp",
         "body": "#include <iostream> // DEV MARKER - REMOVE THIS"
     },
     "dl": {
         "prefix": "dl",
-        "scope": "c++",
+        "scope": "cpp",
         "body": "std::clog << \"[DEBUG][\" << __FILE_NAME << \":\" << __LINE << \"] ${1}: '\" << ${1} << \"'\" << std::endl; // DEV MARKER - REMOVE THIS"
     },
     "dlt": {
         "prefix": "dlt",
-        "scope": "c++",
+        "scope": "cpp",
         "body": "std::clog << \"[DEBUG][\" << __FILE_NAME << \":\" << __LINE << \"] ${1}\" << std::endl; // DEV MARKER - REMOVE THIS"
     }
 }

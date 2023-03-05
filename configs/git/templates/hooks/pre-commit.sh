@@ -188,6 +188,21 @@ function symbolic_links_check()
 	ret_array ${check_errors[@]}
 }
 
+if [[ -f "${HOME}/git/pre-commit-config.yaml" ]]; then
+	HERE="$(cd "$(dirname "$0")" && pwd)"
+	INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
+	ARGS=(hook-impl --config="${HOME}/git/pre-commit-config.yaml" --hook-type=pre-commit --hook-dir "$HERE" -- "$@")
+
+	if [ -x "$INSTALL_PYTHON" ]; then
+		exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
+	elif command -v pre-commit > /dev/null; then
+		exec pre-commit "${ARGS[@]}"
+	else
+		echo '`pre-commit` not found.  Did you forget to activate your virtualenv?' 1>&2
+		exit 1
+	fi
+fi
+
 declare -a INVALID_STRINGS=(
 	'# DEBUG.*$'
 	'// DEBUG.*$'
@@ -244,17 +259,19 @@ fi
 allownonascii=$(git config hooks.allownonascii)
 
 # pre-commit framework hooks.
-HERE="$(cd "$(dirname "$0")" && pwd)"
-INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
-ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit --hook-dir "$HERE" -- "$@")
+if [[ -f "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml" ]]; then
+	HERE="$(cd "$(dirname "$0")" && pwd)"
+	INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
+	ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit --hook-dir "$HERE" -- "$@")
 
-if [ -x "$INSTALL_PYTHON" ]; then
-    exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
-elif command -v pre-commit > /dev/null; then
-    exec pre-commit "${ARGS[@]}"
-else
-    echo '`pre-commit` not found.  Did you forget to activate your virtualenv?' 1>&2
-    exit 1
+	if [ -x "$INSTALL_PYTHON" ]; then
+		exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
+	elif command -v pre-commit > /dev/null; then
+		exec pre-commit "${ARGS[@]}"
+	else
+		echo '`pre-commit` not found.  Did you forget to activate your virtualenv?' 1>&2
+		exit 1
+	fi
 fi
 
 # Redirect output to stderr.

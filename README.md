@@ -60,6 +60,7 @@ Files containing shell functions.
       - [ ] json
       - [ ] markdown
       - [ ] python
+      - [ ] shell
       - [ ] toml
       - [ ] yaml
     - [ ] Sorters:

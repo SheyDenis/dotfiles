@@ -17,7 +17,7 @@ alias rm='rm -i'
 
 # Load more aliases
 if [[ -d "${HOME}/.local/aliases" ]]; then
-    for f in $(find "${HOME}/.local/aliases" -maxdepth 2 -type f); do
+    for f in $(find "${HOME}/.local/aliases" -maxdepth 1 -type f) $(find "${HOME}/.local/aliases" -maxdepth 1 -type l -exec find "{}/" -maxdepth 1 -type f \;); do
         source "${f}"
     done
 fi
