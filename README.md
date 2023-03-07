@@ -40,14 +40,14 @@ Files containing shell functions.
   - [ ] Refactor and split to smaller parts.
   - [ ] Add usage.
   - [ ] Add script header.
-- [ ] pre-commit.sh
-  - [ ] Refactor so uses pre-commit repo.
+- [>] pre-commit.sh
+  - [>] Refactor so uses pre-commit repo.
 - [ ] Add git hooks to dotfiles repo.
 - [ ] vscode
-  - [ ] Auto enable pipenv env in terminal.
+  - [x] Auto enable pipenv env in terminal.
   - [ ] Don't restore history on opening folder.
   - [ ] Show VSC gutter colors for staged files too.
-  - [ ] Perform "external tools" like actions on file.
+  - [x] Perform "external tools" like actions on file.
   - [ ] VSCode spellcheck.
   - [ ] Keymap config.
   - [ ] List of extensions to install.

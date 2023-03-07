@@ -1,0 +1,46 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "isort_file",
+            "type": "shell",
+            "command": ".venv/bin/isort",
+            "args": [
+                "--sp",
+                "~/git/isort.cfg",
+                "--src",
+                "${workspaceFolder}",
+                "${file}"
+            ]
+        },
+        {
+            "label": "yapf_file",
+            "type": "shell",
+            "command": ".venv/bin/yapf",
+            "args": [
+                "--in-place",
+                "--parallel",
+                "--style=${workspaceFolder}",
+                "~/git/yapf_style",
+                "--recursive",
+                "${file}"
+            ]
+        },
+        {
+            "label": "xenon_file",
+            "type": "shell",
+            "command": ".venv/bin/xenon",
+            "args": [
+                "--max-absolute",
+                "B",
+                "--max-modules",
+                "B",
+                "--max-average",
+                "B",
+                "${file}"
+            ]
+        }
+    ]
+}
