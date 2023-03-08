@@ -12,7 +12,7 @@
                 "~/git/isort.cfg",
                 "--src",
                 "${workspaceFolder}",
-                "${file}"
+                "${relativeFile}"
             ]
         },
         {
@@ -22,10 +22,9 @@
             "args": [
                 "--in-place",
                 "--parallel",
-                "--style=${workspaceFolder}",
-                "~/git/yapf_style",
+                "--style=${HOME}/git/yapf_style",
                 "--recursive",
-                "${file}"
+                "${relativeFile}"
             ]
         },
         {
@@ -39,7 +38,7 @@
                 "B",
                 "--max-average",
                 "B",
-                "${file}"
+                "${relativeFile}"
             ]
         }
     ]
