@@ -43,14 +43,14 @@ Files containing shell functions.
 - [>] pre-commit.sh
   - [>] Refactor so uses pre-commit repo.
 - [ ] Add git hooks to dotfiles repo.
-- [ ] vscode
+- [-] vscode
   - [x] Auto enable pipenv env in terminal.
-  - [ ] Don't restore history on opening folder.
-  - [ ] Show VSC gutter colors for staged files too.
+  - [x] Don't restore history on opening folder.
+  - [-] Show VSC gutter colors for staged files too.
   - [x] Perform "external tools" like actions on file.
-  - [ ] VSCode spellcheck.
-  - [ ] Keymap config.
-  - [ ] List of extensions to install.
+  - [-] VSCode spellcheck.
+  - [-] Keymap config.
+  - [-] List of extensions to install.
     - [ ] Formatters:
       - [ ] cmake
       - [ ] cpp
@@ -67,4 +67,4 @@ Files containing shell functions.
       - [ ] json
       - [ ] toml
       - [ ] yaml
-  - [ ] Make vscode snippets use nested snippets.
+  - [-] Make vscode snippets use nested snippets.
