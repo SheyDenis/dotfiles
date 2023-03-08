@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
@@ -133,7 +133,7 @@ function mypy_check() {
 if [[ -f "${HOME}/git/pre-commit-config.yaml" ]]; then
   HERE="$(cd "$(dirname "$0")" && pwd)"
   INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
-  ARGS=(hook-impl --config="${HOME}/git/pre-commit-config.yaml" --hook-type=pre-commit --hook-dir "$HERE" -- "$@")
+  ARGS=(hook-impl "--config=${HOME}/git/pre-commit-config.yaml" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
 
   if [ -x "$INSTALL_PYTHON" ]; then
     exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
@@ -198,7 +198,7 @@ fi
 if [[ -f "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml" ]]; then
   HERE="$(cd "$(dirname "$0")" && pwd)"
   INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
-  ARGS=(hook-impl --config=.pre-commit-config.yaml --hook-type=pre-commit --hook-dir "$HERE" -- "$@")
+  ARGS=(hook-impl "--config=.pre-commit-config.yaml" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
 
   if [ -x "$INSTALL_PYTHON" ]; then
     exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
