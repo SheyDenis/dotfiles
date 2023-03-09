@@ -40,6 +40,27 @@
                 "B",
                 "${relativeFile}"
             ]
+        },
+        {
+            "label": "pylint_file",
+            "type": "shell",
+            "command": ".venv/bin/pylint",
+            "args": [
+                "--rcfile=${HOME}/git/pylintrc",
+                "--jobs=4",
+                "--verbose",
+                "${relativeFile}"
+            ]
+        },
+        {
+            "label": "mypy_file",
+            "type": "shell",
+            "command": ".venv/bin/mypy",
+            "args": [
+                "--follow-imports=silent",
+                "--ignore-missing-imports",
+                "${relativeFile}"
+            ]
         }
     ]
 }

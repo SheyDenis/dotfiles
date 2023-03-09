@@ -21,5 +21,13 @@
         "prefix": "dfl",
         "scope": "python",
         "body": "logging.log(9001, '[DEBUG:%s] ${1} - %s', __file__, pformat(${1}))  # DEV MARKER - REMOVE THIS"
+    },
+    "Load dot_env": {
+        "prefix": "lde",
+        "scope": "python",
+        "body": [
+            "from dotenv import load_dotenv  # DEV MARKER - REMOVE THIS",
+            "load_dotenv(override=True)  # DEV MARKER - REMOVE THIS"
+        ]
     }
 }
