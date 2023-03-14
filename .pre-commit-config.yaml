@@ -14,7 +14,7 @@ repos:
     args: [--branch, master]
   - id: trailing-whitespace
 - repo: https://github.com/SheyDenis/pre-commit-hooks
-  rev: dev/refactor_1
+  rev: 0.2.0
   hooks:
   - id: dev-marker-hook
   - id: isort-hook
