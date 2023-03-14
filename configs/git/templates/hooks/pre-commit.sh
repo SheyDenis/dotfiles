@@ -18,119 +18,8 @@ else
   against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-function find_cmd() {
-  cmd="$1"
-  if [[ -z "${cmd}" ]]; then
-    echo_stderr "No command supplied!"
-    echo 0
-    return
-  fi
-
-  if [[ $(command -v ${cmd}) ]]; then
-    echo 1
-  else
-    echo 0
-  fi
-}
-
-function check_disabled() {
-  check_name=$1
-  if [[ -z "${check_name}" ]]; then
-    echo_stderr "No check supplied!"
-    echo 0
-    return
-  fi
-
-  check_var="DISABLE_$(echo ${check_name} | tr '[:lower:]' '[:upper:]')"
-  check_var_val="$(eval "echo \${${check_var}}")"
-
-  if [[ "${check_var_val}" -eq 1 || "${check_var_val}" =~ ^[yY]([eE][sS])?$ ]]; then
-    echo 1
-  else
-    echo 0
-  fi
-}
-
-function ret_array() {
-  declare -a arr=${@}
-
-  for idx in $(seq 0 $((${#arr[@]} - 1))); do
-    echo "${arr[$idx]}"
-  done
-}
-
-function is_test_file() {
-  file_name=$1
-  if [[ -z "${file_name}" ]]; then
-    echo_stderr "No file supplied!"
-    echo 0
-    return
-  fi
-
-  if [[ -n $(echo ${file_name%/*} | grep -E "(^|/)test[s]?($|/)") || -d "${file_name%/*}" ]]; then
-    echo 1
-  else
-    echo 0
-  fi
-}
-
-function clang_format_check() {
-  # TODO - Remove once implemented in pre-commit-hooks repo.
-  if [[ $(check_disabled clang_format) -eq 1 ]]; then
-    echo_stderr "clang_format check disabled"
-    return
-  fi
-  declare -a staged_files=${@}
-  declare -a check_errors
-  cmd_found=$(find_cmd clang-format)
-
-  for staged_file in ${staged_files[@]}; do
-    if [[ -z $(echo ${staged_file} | grep -iE ".*\.(c|cpp|h|hpp)$") ]]; then
-      continue
-    fi
-    if [[ ${cmd_found} -eq 0 ]]; then
-      check_errors=("${check_errors[@]}" "File failed clang-format check [${staged_file}][missing clang-format executable]")
-      continue
-    fi
-
-    RES="$(clang-format --style=file --dry-run -Werror --ferror-limit=0 ${staged_file} 2>&1)"
-    if [[ $? -ne 0 ]]; then
-      check_errors=("${check_errors[@]}" "File failed clang-format check [${staged_file}].")
-    fi
-  done
-
-  ret_array ${check_errors[@]}
-}
-
-function mypy_check() {
-  # TODO - Remove once implemented in pre-commit-hooks repo.
-  if [[ $(check_disabled mypy) -eq 1 ]]; then
-    echo_stderr "mypy check disabled"
-    return
-  fi
-  declare -a staged_files=${@}
-  declare -a check_errors
-  cmd_found=$(find_cmd mypy)
-
-  for staged_file in ${staged_files[@]}; do
-    if [[ -z $(echo ${staged_file} | grep -iE ".*\.(py)$") ]]; then
-      continue
-    fi
-    if [[ ${cmd_found} -eq 0 ]]; then
-      check_errors=("${check_errors[@]}" "File failed mypy check [${staged_file}][missing mypy executable]")
-      continue
-    fi
-
-    file_check="$(mypy --follow-imports=silent --ignore-missing-imports ${staged_file} | sed '$d' | sed -e 's/^[^ :]*:[0-9]*: *//' | tr "\n" ",")"
-    if [[ -n "${file_check}" ]]; then
-      check_errors=("${check_errors[@]}" "File failed mypy check [${staged_file}][${file_check%,}]")
-    fi
-  done
-
-  ret_array ${check_errors[@]}
-}
-
 if [[ -f "${HOME}/git/pre-commit-config.yaml" ]]; then
+  # Global pre-commit hooks.
   HERE="$(cd "$(dirname "$0")" && pwd)"
   INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
   ARGS=(hook-impl "--config=${HOME}/git/pre-commit-config.yaml" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
@@ -145,29 +34,11 @@ if [[ -f "${HOME}/git/pre-commit-config.yaml" ]]; then
   fi
 fi
 
-declare -a INVALID_STRINGS=(
-  '# DEBUG.*$'
-  '// DEBUG.*$'
-  '# DEV MARKER.*$'
-  '// DEV MARKER.*$'
-)
 declare -a ERRORS_ARRAY
 
 OLD_IFS=${IFS}
 IFS=$'\n'
 declare -a MODIFIED_FILES=$(git diff --staged --name-status | grep -vE "^D" | sed -e 's/[ACMRT][[:space:]]*//')
-
-ERRORS_ARRAY=("${ERRORS_ARRAY[@]}" $(symbolic_links_check ${MODIFIED_FILES}))
-
-# DEBUG messages
-# TODO - Remove once implemented in pre-commit-hooks repo.
-for staged_file in ${MODIFIED_FILES[@]}; do
-  for invalid_string in "${INVALID_STRINGS[@]}"; do
-    if [[ -n "$(git diff ${against} "${staged_file}" | grep -E "^\+.*${invalid_string}")" ]]; then
-      ERRORS_ARRAY=("${ERRORS_ARRAY[@]}" "Attempting to commit a DEBUG message [${staged_file}].")
-    fi
-  done
-done
 
 for staged_file in ${MODIFIED_FILES[@]}; do
   # TODO - Remove once implemented in pre-commit-hooks repo.
@@ -177,12 +48,6 @@ for staged_file in ${MODIFIED_FILES[@]}; do
     ERRORS_ARRAY=("${ERRORS_ARRAY[@]}" "Attempting to commit a file ${staged_file_line_ending} [${staged_file}].")
   fi
 done
-
-# clang-format check
-ERRORS_ARRAY=("${ERRORS_ARRAY[@]}" $(clang_format_check ${MODIFIED_FILES}))
-
-# mypy check
-#ERRORS_ARRAY=("${ERRORS_ARRAY[@]}" $(mypy_check ${MODIFIED_FILES}))
 
 IFS=${OLD_IFS}
 
