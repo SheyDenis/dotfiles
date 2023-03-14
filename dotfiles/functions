@@ -3,32 +3,38 @@
 #
 
 function blink() {
-	# Makes the terminal window label in the application list to bold.
+    # Makes the terminal window label in the application list to bold.
 
-	window_title="$(wmctrl -l | grep "$(printf '0x%0.8x' ${WINDOWID})" | awk '{for (i = 4; i <= NF; i++){ printf "%s" $i, OFS} print "" }')"
-	if [ -z "${window_title}" ]; then
-		window_title="Window title missing!"
-	fi
+    window_title="$(wmctrl -l | grep "$(printf '0x%0.8x' ${WINDOWID})" | awk '{for (i = 4; i <= NF; i++){ printf "%s" $i, OFS} print "" }')"
+    if [ -z "${window_title}" ]; then
+        window_title="Window title missing!"
+    fi
 
-	for flag in ${@}; do
-		if [ "${flag}" == '-n' ]; then
-			shift
-			args+="${@}"
-			notify-send -t 0 "$(date)" "${window_title}\n ${args}"
-			break
-		else
-			# args+="${flag} "
-			shift
-		fi
-	done
+    for flag in ${@}; do
+        if [ "${flag}" == '-n' ]; then
+            shift
+            args+="${@}"
+            notify-send -t 0 "$(date)" "${window_title}\n ${args}"
+            break
+        else
+            # args+="${flag} "
+            shift
+        fi
+    done
 
-	[ -n "${WINDOWID}" ] && wmctrl -i -r "${WINDOWID}" -b add,demands_attention
-	return
+    [ -n "${WINDOWID}" ] && wmctrl -i -r "${WINDOWID}" -b add,demands_attention
+    return
+}
+
+function notify() {
+    # cmd="display notification \"$@\""
+    cmd="display alert \"$@\""
+    osascript -e ${cmd}
 }
 
 # Load more functions
 if [[ -d "${HOME}/.local/functions" ]]; then
-	for f in $(find "${HOME}/.local/functions" -maxdepth 2 -type f); do
-		source "${f}"
-	done
+    for f in $(find "${HOME}/.local/functions" -maxdepth 1 -type f) $(find "${HOME}/.local/functions" -maxdepth 1 -type l -exec find "{}/" -maxdepth 1 -type f \;); do
+        source "${f}"
+    done
 fi

@@ -24,7 +24,6 @@ cdk.out/
 cmake-build-*/
 
 # IDE
-.github/
 .idea/
 .vscode/
 http-client.env.json
