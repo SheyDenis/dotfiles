@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-
-# title           :backup_dotfiles.py
-# description     :Utility script for backing up dotfiles and other files.
-# author          :Denis Sheyer
-# ===============================================================================
+"""Utility script for backing up dotfiles and other files."""
 
 import filecmp
 import logging
@@ -14,13 +10,13 @@ import sys
 from argparse import ArgumentParser, Namespace
 from typing import Final, NamedTuple, Optional, Tuple
 
-VERSION = '12023-02-17'
-BACKUP_DEST = ''
+VERSION_FILE: Final[str] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'VERSION')
+BACKUP_DEST: str = ''
 DRY_RUN_DEFAULT: Final[bool] = False
 MAX_FILE_SIZE_MB_DEFAULT: Final[float] = 20
 
-
 # pylint: disable=missing-class-docstring,missing-function-docstring
+
 
 class BackupFile(NamedTuple):
     src: str
@@ -46,8 +42,8 @@ def init_logging(log_level: int = logging.DEBUG) -> None:
 def init_argparse() -> ArgumentParser:
     parser = ArgumentParser(prog='Utility script for backing up dotfiles and other files.')
     parser.add_argument('-v', '--version', action='store_true')
-    parser.add_argument('--log-level', type=int, choices=[logging.CRITICAL, logging.ERROR, logging.WARNING,
-                                                          logging.INFO, logging.DEBUG], default=logging.DEBUG)
+    parser.add_argument('--log-level', type=int, choices=[logging.CRITICAL, logging.ERROR, logging.WARNING, logging.INFO, logging.DEBUG],
+                        default=logging.DEBUG)
     parser.add_argument('-n', '--dry-run', action='store_true', help='Dry run, only print what would have happened.')
     parser.add_argument('--continue-on-error', action='store_true', help='Continue backup even if some files fail.')
     parser.add_argument('--max-file-size-mb', type=float, help='Max file size in MB to copy, skip files larger.',
@@ -58,7 +54,14 @@ def init_argparse() -> ArgumentParser:
 
 
 def print_version() -> None:
-    print(f'Version: {VERSION}')
+    version: str
+    try:
+        with open(VERSION_FILE, 'r', encoding='utf8') as fh:
+            version = ''.join(fh.readlines()).rstrip('\n')
+    except (FileNotFoundError, IsADirectoryError) as ex:
+        version = f'Missing version file [{VERSION_FILE}][{ex.__class__.__name__}]!'
+
+    print(f'Version: {version}')
 
 
 def create_dir(dst: str, dry_run: bool = DRY_RUN_DEFAULT) -> bool:
@@ -116,11 +119,13 @@ def diff_dir(src: str, dst: str) -> bool:
                 return True
     return False
 
+
 def get_file_size_mb(src: str) -> float:
     return os.stat(src).st_size / (1024 * 1024)
 
-def sync_file(src: str, dst: str, dry_run: bool = DRY_RUN_DEFAULT, force: bool = False, max_file_size_mb:
-              float = MAX_FILE_SIZE_MB_DEFAULT) -> bool:
+
+def sync_file(src: str, dst: str, dry_run: bool = DRY_RUN_DEFAULT, force: bool = False,
+              max_file_size_mb: float = MAX_FILE_SIZE_MB_DEFAULT) -> bool:
 
     if not force and not diff_file(src, dst):
         logging.info('File [%s] is up to date', src)
@@ -146,14 +151,14 @@ def sync_file(src: str, dst: str, dry_run: bool = DRY_RUN_DEFAULT, force: bool =
     return True
 
 
-def sync_dir(src: str, dst: str, *, dry_run: bool = DRY_RUN_DEFAULT, continue_on_error: bool = False,
-             force: bool = False, max_file_size_mb: float = MAX_FILE_SIZE_MB_DEFAULT) -> bool:
+def sync_dir(src: str, dst: str, *, dry_run: bool = DRY_RUN_DEFAULT, continue_on_error: bool = False, force: bool = False,
+             max_file_size_mb: float = MAX_FILE_SIZE_MB_DEFAULT) -> bool:
     for filename in os.listdir(src):
         backup_file = BackupFile(os.path.join(src, filename), dst)
         file_src = backup_file.src
         file_dst = get_dst(backup_file)
-        success: bool = True
-        last_handled_is_dir: bool = False
+        success: bool
+        last_handled_is_dir: bool
         if os.path.isdir(file_src):
             last_handled_is_dir = True
             logging.info('Recursively syncing [%s]', file_src)

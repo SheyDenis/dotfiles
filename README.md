@@ -35,11 +35,11 @@ Files containing shell functions.
 
 ### TODO
 
-- [ ] pre-commit.sh
-    - [ ] Refactor so uses pre-commit repo.
-- [ ] backup_dotfiles.py
+- [ ] Create a template repo with `master` branch and default settings and workflow / hooks.
+- [>] backup_dotfiles.py
     - [ ] Refactor.
-    - [ ] Auto increment version on merge to master.
+    - [x] Auto increment version on merge to master.
+    - [?] Delete.
 - [ ] Add `configure_env.sh` script.
     - [ ] Refactor and split to smaller parts.
     - [ ] Add usage.
