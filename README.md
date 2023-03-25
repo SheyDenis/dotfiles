@@ -35,7 +35,6 @@ Files containing shell functions.
 
 ### TODO
 
-- [ ] Fix gitflows not triggering when opening a new PR.
 - [ ] Create a template repo with `master` branch and default settings and workflow / hooks.
 - [>] backup_dotfiles.py
     - [ ] Refactor.
