@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-
-# title           :backup_dotfiles.py
-# description     :Utility script for backing up dotfiles and other files.
-# author          :Denis Sheyer
-# ===============================================================================
+"""Utility script for backing up dotfiles and other files."""
 
 import filecmp
 import logging
@@ -14,7 +10,7 @@ import sys
 from argparse import ArgumentParser, Namespace
 from typing import Final, NamedTuple, Optional, Tuple
 
-VERSION_FILE: Final[str] = 'VERSION'
+VERSION_FILE: Final[str] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'VERSION')
 BACKUP_DEST: str = ''
 DRY_RUN_DEFAULT: Final[bool] = False
 MAX_FILE_SIZE_MB_DEFAULT: Final[float] = 20
@@ -161,8 +157,8 @@ def sync_dir(src: str, dst: str, *, dry_run: bool = DRY_RUN_DEFAULT, continue_on
         backup_file = BackupFile(os.path.join(src, filename), dst)
         file_src = backup_file.src
         file_dst = get_dst(backup_file)
-        success: bool = True
-        last_handled_is_dir: bool = False
+        success: bool
+        last_handled_is_dir: bool
         if os.path.isdir(file_src):
             last_handled_is_dir = True
             logging.info('Recursively syncing [%s]', file_src)
