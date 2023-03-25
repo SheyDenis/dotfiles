@@ -35,7 +35,7 @@ Files containing shell functions.
 
 ### TODO
 
-- [ ] Create a template repo with `master` branch and default settings and workflow / hooks.
+- [x] Create a template repo with `master` branch and default settings and workflow / hooks.
 - [>] backup_dotfiles.py
     - [ ] Refactor.
     - [x] Auto increment version on merge to master.
