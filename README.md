@@ -40,8 +40,10 @@ Files containing shell functions.
     - [ ] Refactor.
     - [x] Auto increment version on merge to master.
     - [?] Delete.
-- [ ] Add `configure_env.sh` script.
-    - [ ] Refactor and split to smaller parts.
+- [>] Add `configure_env.sh` script.
+    - [>] Refactor and split to smaller parts.
+    - [>] Rewrite in python.
     - [ ] Add usage.
     - [ ] Add script header.
 - [ ] Add JetBrains settings.
+- [ ] Refactor `pre-commit.sh` to check for a local `.personal-pre-commit-config.yml` instead of a global one.
