@@ -1,7 +1,11 @@
+import filecmp
 import os
-from typing import Final, Iterable, Tuple
+import shutil
+from typing import Callable, Dict, Final, Iterable, Optional, Tuple, cast
 
-from configure_env.utils.constants import HOME_DIR
+from mypy_extensions import NamedArg
+
+from configure_env.utils.constants import DOTFILES_DIR, HOME_DIR
 from configure_env.utils.logger import get_logger
 
 logger = get_logger()
@@ -43,9 +47,84 @@ def _link_dotfiles(src: str, dst: str, *, dry_run: bool) -> bool:
     return False
 
 
+def _get_dotfile_copy_dst(dotfile: os.DirEntry) -> Optional[str]:
+    dst_exceptions: Final[Dict[str, str]] = {
+        'vimrc': '~/.vimrc',
+    }
+    if dotfile.name in dst_exceptions:
+        return os.path.expanduser(dst_exceptions[dotfile.name])
+
+    dotfile_dst: str
+    with open(dotfile.path, 'r') as fh:
+        dotfile_dst = os.path.expanduser(fh.readlines(2)[-1].lstrip('# ').rstrip('\n'))
+
+    if not dotfile_dst or dotfile_dst.isspace():
+        logger.error('Failed to get destination file for [%s]', dotfile.path)
+        return None
+    return dotfile_dst
+
+
+def _copy_dotfile(dotfile: os.DirEntry, *, dry_run: bool) -> bool:
+    logger.info('Copying dotfile [%s]', dotfile.path)
+    dotfile_dst: Optional[str] = _get_dotfile_copy_dst(dotfile)
+    if not dotfile_dst:
+        return False
+    dotfile_dst = cast(str, dotfile_dst)
+
+    if os.path.isdir(dotfile_dst) or os.path.islink(dotfile_dst):
+        logger.error('Destination file [%s] for [%s] is a [isdir=%s][islink=%s]', dotfile_dst, dotfile.path, os.path.isdir(dotfile_dst),
+                     os.path.islink(dotfile_dst))
+        return False
+
+    if os.path.exists(dotfile_dst):
+        if filecmp.cmp(dotfile.path, dotfile_dst):
+            logger.info('Files [%s] and [%s] match, continuing', dotfile.path, dotfile_dst)
+            return True
+        logger.warning('Files [%s] and [%s] differ', dotfile.path, dotfile_dst)
+        return False
+
+    logger.info('Copying file [%s] to [%s]', dotfile.path, dotfile_dst)
+    if not dry_run:
+        shutil.copyfile(dotfile.path, dotfile_dst, follow_symlinks=False)
+
+    return True
+
+
+def _link_dotfile(dotfile: os.DirEntry, *, dry_run: bool) -> bool:
+    logger.info('Linking dotfile [%s]', dotfile.path)
+
+    dotfile_dst: Optional[str] = _get_dotfile_copy_dst(dotfile)
+    if not dotfile_dst:
+        return False
+    dotfile_dst = cast(str, dotfile_dst)
+
+    if os.path.exists(dotfile_dst) and not os.path.islink(dotfile_dst):
+        logger.error('Destination file [%s] for [%s] is a [isdir=%s][isfile=%s]', dotfile_dst, dotfile.path, os.path.isdir(dotfile_dst),
+                     os.path.isfile(dotfile_dst))
+        return False
+
+    if os.path.exists(dotfile_dst):
+        link_dst: str = dotfile_dst
+        while True:
+            try:
+                link_dst = os.readlink(link_dst)
+                continue
+            except OSError:
+                pass
+            break
+        if link_dst == dotfile.path:
+            logger.warning('Destination file [%s] for [%s] doesn\'t exist, remove the link and try again', dotfile_dst, dotfile.path)
+            return False
+
+    logger.info('Creating link [%s] to [%s]', dotfile_dst, dotfile.path)
+    if not dry_run:
+        os.symlink(dotfile.path, dotfile_dst)
+    return True
+
+
 def create_local_dirs(dry_run: bool) -> bool:
     logger.info('Creating env directories')
-    dirs_to_create: Final[Iterable[str, ...]] = (
+    dirs_to_create: Final[Iterable[str]] = (
         os.path.join(HOME_DIR, '.local', d) for d in (
             'aliases',
             'bin',
@@ -78,7 +157,17 @@ def link_dotfiles(dry_run: bool) -> bool:
 
 def copy_dotfiles(dry_run: bool) -> bool:
     logger.info('Copying dotfiles')
-    pass  # TODO
+    dotfiles_to_link: Final[Tuple[str, ...]] = ('gitignore',)
+
+    success: bool = True
+    with os.scandir(DOTFILES_DIR) as itr:
+        dotfile: os.DirEntry
+        for dotfile in itr:
+            func: Callable[[os.DirEntry, NamedArg(bool, 'dry_run')],
+                           bool] = _link_dotfile if dotfile.name in dotfiles_to_link else _copy_dotfile
+            success &= func(dotfile, dry_run=dry_run)
+
+    return success
 
 
 def execute(dry_run: bool) -> bool:
