@@ -6,4 +6,4 @@ logger = get_logger()
 
 
 def execute(dry_run: bool) -> bool:
-    raise NotImplementedError
+    raise NotImplementedError  # DEV MARKER - Implement
