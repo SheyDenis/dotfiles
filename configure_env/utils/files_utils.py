@@ -4,7 +4,9 @@ import shutil
 
 from configure_env.utils.logger import get_logger
 
-logger = get_logger()  # DEV MARKER - Add caller
+logger = get_logger()
+
+# pylint: disable=missing-function-docstring
 
 
 def create_dir(dir_: str, *, dry_run: bool) -> bool:
@@ -28,7 +30,7 @@ def link_dir(src: str, dst: str, *, dry_run: bool) -> bool:
         if os.path.realpath(dst) != src:
             logger.error('Link [%s] links to [%s] instead of [%s]', dst, os.path.realpath(dst), src)
             return False
-        logger.info('Not creating link [%s], already exists', dst)
+        logger.info('Not creating link [%s] -> [%s], already exists', dst, src)
         return True
 
     try:
@@ -77,8 +79,10 @@ def link_file(src: str, dst: str, *, dry_run: bool) -> bool:
                 pass
             break
         if link_dst == src:
-            logger.warning('Destination file [%s] for [%s] doesn\'t exist, remove the link and try again', dst, src)
-            return False
+            logger.info('Not creating link [%s] -> [%s], already exists', dst, src)
+            return True
+        logger.error('Link [%s] links to [%s] instead of [%s]', dst, os.path.realpath(dst), src)
+        return False
 
     logger.info('Creating link [%s] to [%s]', dst, src)
     if not dry_run:

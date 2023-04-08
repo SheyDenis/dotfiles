@@ -1,12 +1,14 @@
 import os
 import platform
-from typing import Final, Iterable, Tuple
+from typing import Final, List
 
+from overrides import override
+
+from configure_env.env_files_abc import EnvFileDst, EnvFilesABC, EnvFilesTargets, EnvFileType
 from configure_env.utils.constants import CONFIGS_DIR, HOME_DIR
-from configure_env.utils.files_utils import copy_file, create_dir, link_file
 from configure_env.utils.logger import get_logger
 
-# pylint: disable=missing-function-docstring
+# pylint: disable=missing-class-docstring,missing-function-docstring
 
 
 def __get_platform_config_path() -> str:
@@ -23,43 +25,37 @@ SNIPPETS_DIR_PATH: Final[str] = os.path.join(PLATFORM_CONFIG_PATH_VSCODE, 'snipp
 logger = get_logger()
 
 
-def create_dirs(dry_run: bool) -> bool:
-    logger.info('Creating config directories')
-    dirs_to_create: Final[Iterable[str]] = (os.path.join(PLATFORM_CONFIG_PATH_VSCODE, 'snippets'),)
+class VsCodeFiles(EnvFilesABC):
 
-    success: bool = True
-    for dir_ in dirs_to_create:
-        success &= create_dir(dir_, dry_run=dry_run)
+    @staticmethod
+    @override
+    def dirs_to_create() -> List[str]:
+        return [os.path.join(PLATFORM_CONFIG_PATH_VSCODE, 'snippets')]
 
-    return success
+    @staticmethod
+    @override
+    def dirs_to_link() -> EnvFilesTargets:
+        return []
 
+    @staticmethod
+    @override
+    def files_to_link() -> EnvFilesTargets:
+        res: EnvFilesTargets = []
 
-def copy_configs(dry_run: bool) -> bool:
-    logger.info('Copying VSCode configs')
-    files_to_copy: Final[Iterable[Tuple[str, str]]] = tuple()
-
-    success: bool = True
-    for src, dst in files_to_copy:
-        success &= copy_file(src, dst, dry_run=dry_run)
-
-    return success
-
-
-def link_configs(dry_run: bool) -> bool:
-    logger.info('Linking VSCode configs')
-    links_to_create: Final[Iterable[Tuple[str, str]]] = (
         # Configs
-        (os.path.join(CONFIGS_DIR_VSCODE, 'tasks.json'), os.path.join(PLATFORM_CONFIG_PATH_VSCODE, 'tasks.json')),
+        res.extend(
+            EnvFileDst(
+                src=os.path.join(CONFIGS_DIR_VSCODE, f), dst=os.path.join(PLATFORM_CONFIG_PATH_VSCODE, f), type_=EnvFileType.FILE_LINK)
+            for f in ('tasks.json',))
+
         # Snippets
-        *((os.path.join(SNIPPETS_DIR, snippet.name), os.path.join(SNIPPETS_DIR_PATH, f'dotfiles_{snippet.name}'))
-          for snippet in os.scandir(SNIPPETS_DIR)))
+        res.extend(
+            EnvFileDst(
+                src=os.path.join(SNIPPETS_DIR, snippet.name), dst=os.path.join(SNIPPETS_DIR_PATH, f'dotfiles_{snippet.name}'),
+                type_=EnvFileType.FILE_LINK) for snippet in os.scandir(SNIPPETS_DIR))
+        return res
 
-    success: bool = True
-    for src, dst in links_to_create:
-        success &= link_file(src, dst, dry_run=dry_run)
-
-    return success
-
-
-def execute(dry_run: bool) -> bool:
-    return create_dirs(dry_run) and copy_configs(dry_run) and link_configs(dry_run)
+    @staticmethod
+    @override
+    def files_to_copy() -> EnvFilesTargets:
+        return []
