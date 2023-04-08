@@ -1,66 +1,74 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "isort_file",
-            "type": "shell",
-            "command": ".venv/bin/isort",
-            "args": [
-                "--sp",
-                "~/git/isort.cfg",
-                "--src",
-                "${workspaceFolder}",
-                "${relativeFile}"
-            ]
-        },
-        {
-            "label": "yapf_file",
-            "type": "shell",
-            "command": ".venv/bin/yapf",
-            "args": [
-                "--in-place",
-                "--parallel",
-                "--style=${HOME}/git/yapf_style",
-                "--recursive",
-                "${relativeFile}"
-            ]
-        },
-        {
-            "label": "xenon_file",
-            "type": "shell",
-            "command": ".venv/bin/xenon",
-            "args": [
-                "--max-absolute",
-                "B",
-                "--max-modules",
-                "B",
-                "--max-average",
-                "B",
-                "${relativeFile}"
-            ]
-        },
-        {
-            "label": "pylint_file",
-            "type": "shell",
-            "command": ".venv/bin/pylint",
-            "args": [
-                "--rcfile=${HOME}/git/pylintrc",
-                "--jobs=4",
-                "--verbose",
-                "${relativeFile}"
-            ]
-        },
-        {
-            "label": "mypy_file",
-            "type": "shell",
-            "command": ".venv/bin/mypy",
-            "args": [
-                "--follow-imports=silent",
-                "--ignore-missing-imports",
-                "${relativeFile}"
-            ]
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "isort_file",
+      "type": "shell",
+      "command": ".venv/bin/isort",
+      "args": [
+        "--sp",
+        "~/git/isort.cfg",
+        "--src",
+        "${workspaceFolder}",
+        "${relativeFile}"
+      ]
+    },
+    {
+      "label": "yapf_file",
+      "type": "shell",
+      "command": ".venv/bin/yapf",
+      "args": [
+        "--in-place",
+        "--parallel",
+        "--style=${HOME}/git/yapf_style",
+        "--recursive",
+        "${relativeFile}"
+      ]
+    },
+    {
+      "label": "xenon_file",
+      "type": "shell",
+      "command": ".venv/bin/xenon",
+      "args": [
+        "--max-absolute",
+        "B",
+        "--max-modules",
+        "B",
+        "--max-average",
+        "B",
+        "${relativeFile}"
+      ]
+    },
+    {
+      "label": "pylint_file",
+      "type": "shell",
+      "command": ".venv/bin/pylint",
+      "args": [
+        "--rcfile=${HOME}/git/pylintrc",
+        "--jobs=4",
+        "--verbose",
+        "${relativeFile}"
+      ]
+    },
+    {
+      "label": "mypy_file",
+      "type": "shell",
+      "command": ".venv/bin/mypy",
+      "args": [
+        "--follow-imports=silent",
+        "--ignore-missing-imports",
+        "${relativeFile}"
+      ]
+    },
+    {
+      "label": "clang-format",
+      "type": "shell",
+      "command": "clang-format",
+      "args": [
+        "--style=file",
+        "-i",
+        "${relativeFile}"
+      ]
+    }
+  ]
 }

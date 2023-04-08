@@ -7,11 +7,11 @@
     "dl": {
         "prefix": "dl",
         "scope": "cpp",
-        "body": "std::clog << \"[DEBUG][\" << __FILE_NAME << \":\" << __LINE << \"] ${1}: '\" << ${1} << \"'\" << std::endl; // DEV MARKER - REMOVE THIS"
+        "body": "std::clog << \"[DEBUG][\" << __FILE__ << \":\" << __LINE__ << \"] ${1}: '\" << ${1} << \"'\" << std::endl; // DEV MARKER - REMOVE THIS"
     },
     "dlt": {
         "prefix": "dlt",
         "scope": "cpp",
-        "body": "std::clog << \"[DEBUG][\" << __FILE_NAME << \":\" << __LINE << \"] ${1}\" << std::endl; // DEV MARKER - REMOVE THIS"
+        "body": "std::clog << \"[DEBUG][\" << __FILE__ << \":\" << __LINE__ << \"] ${1}\" << std::endl; // DEV MARKER - REMOVE THIS"
     }
 }

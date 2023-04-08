@@ -4,9 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+overrides = "*"
 
 [dev-packages]
 isort = "*"
+mypy = "*"
 pre-commit = "*"
 pylint = "*"
 xenon = "*"

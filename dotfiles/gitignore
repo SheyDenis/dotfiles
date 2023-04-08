@@ -25,12 +25,13 @@ cmake-build-*/
 
 # IDE
 .idea/
-.vscode/
 http-client.env.json
 http-client.private.env.json
 
 # Misc
 .*/
+!.github/
+!.vscode/
 .DS_Store/
 *.log
 
