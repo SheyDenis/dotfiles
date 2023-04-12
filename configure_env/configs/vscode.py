@@ -10,11 +10,15 @@ from configure_env.utils.logger import get_logger
 
 # pylint: disable=missing-class-docstring,missing-function-docstring
 
+__USE_VSCODIUM: Final[bool] = True
+
 
 def __get_platform_config_path() -> str:
     if platform.system().lower() == 'linux':
-        return os.path.join(HOME_DIR, '.config/Code - OSS/User')
-    return os.path.join(HOME_DIR, 'Library/Application Support/Code/User')
+        if __USE_VSCODIUM:
+            return os.path.join(HOME_DIR, '.config', 'VSCodium', 'User')
+        return os.path.join(HOME_DIR, '.config', 'Code - OSS', 'User')
+    return os.path.join(HOME_DIR, 'Library', 'Application Support', 'Code', 'User')
 
 
 CONFIGS_DIR_VSCODE: Final[str] = os.path.join(CONFIGS_DIR, 'vscode')

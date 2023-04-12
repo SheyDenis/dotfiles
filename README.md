@@ -26,5 +26,6 @@ Files containing shell functions.
     - [ ] Refactor.
     - [?] Delete.
 - [ ] Add JetBrains settings.
+- [ ] Add VSCode `settings.json`.
 - [ ] Sort Pipfile packages.
 - [ ] Refactor `pre-commit.sh` to check for a local `.personal-pre-commit-config.yml` instead of a global one.
