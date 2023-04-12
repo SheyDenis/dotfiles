@@ -23,5 +23,4 @@ Files containing shell functions.
 ### TODO
 
 - [ ] Add JetBrains settings.
-- [ ] Add VSCode `settings.json`.
 - [ ] Refactor `pre-commit.sh` to check for a local `.personal-pre-commit-config.yml` instead of a global one.

@@ -50,7 +50,10 @@ class VsCodeFiles(EnvFilesABC):
         res.extend(
             EnvFileDst(
                 src=os.path.join(CONFIGS_DIR_VSCODE, f), dst=os.path.join(PLATFORM_CONFIG_PATH_VSCODE, f), type_=EnvFileType.FILE_LINK)
-            for f in ('tasks.json',))
+            for f in (
+                'settings.json',
+                'tasks.json',
+            ))
 
         # Snippets
         res.extend(
