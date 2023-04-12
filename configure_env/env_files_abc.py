@@ -43,3 +43,7 @@ class EnvFilesABC(ABC):
     @abstractmethod
     def files_to_copy() -> EnvFilesTargets:
         pass
+
+    @classmethod
+    def env_files_type(cls) -> str:
+        return cls.__name__

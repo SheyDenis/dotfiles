@@ -4,7 +4,7 @@ import os
 import sys
 from argparse import Namespace
 from collections import defaultdict
-from typing import List, Tuple, Type
+from typing import Final, List, Tuple, Type
 
 from configure_env.configs.git import GitFiles
 from configure_env.configs.vscode import VsCodeFiles
@@ -16,13 +16,25 @@ from configure_env.utils.logger import get_logger
 
 logger = get_logger()
 
+ALL_ENV_FILES_CLASSES: Final[Tuple[Type[EnvFilesABC], ...]] = (
+    DotfilesFiles,
+    GitFiles,
+    VsCodeFiles,
+)
+__USE_ALL_ENV_FILES_CLASS: Final[str] = 'all'
+
 # pylint: disable=missing-function-docstring
 
 
 def parse_arguments() -> Namespace:
-    base_parse = get_base_parser()
+    base_parser = get_base_parser()
 
-    return base_parse.parse_args()
+    base_parser.add_argument('--types', nargs='+', choices=[
+        __USE_ALL_ENV_FILES_CLASS,
+        *(file_class.env_files_type() for file_class in ALL_ENV_FILES_CLASSES),
+    ], default=[__USE_ALL_ENV_FILES_CLASS], help='Types of configurations to handle')
+
+    return base_parser.parse_args()
 
 
 def create_dirs(dirs_to_create: List[str], dry_run: bool) -> bool:
@@ -132,11 +144,12 @@ def log_work(dirs_to_create: List[str], dirs_to_link: EnvFilesTargets, files_to_
 
 def main() -> int:
     args = parse_arguments()
-    env_files_classes: Tuple[Type[EnvFilesABC], ...] = (
-        DotfilesFiles,
-        GitFiles,
-        VsCodeFiles,
-    )
+
+    env_files_classes: Tuple[Type[EnvFilesABC], ...]
+    if __USE_ALL_ENV_FILES_CLASS in args.types:
+        env_files_classes = ALL_ENV_FILES_CLASSES
+    else:
+        env_files_classes = tuple(file_class for file_class in ALL_ENV_FILES_CLASSES if file_class.env_files_type() in args.types)
 
     dirs_to_create = get_dirs_to_create(*env_files_classes)
     dirs_to_link = get_dirs_to_link(*env_files_classes)
