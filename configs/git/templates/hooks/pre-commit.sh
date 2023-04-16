@@ -7,22 +7,34 @@ else
   against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-if [[ -f "${HOME}/git/pre-commit-config.yaml" ]]; then
+pre_commit_rc=0
+personal_pre_commit_config_file="${HOME}/git/pre-commit-config.yaml" # Global pre-commit hooks.
+if [[ -f "$(git rev-parse --show-toplevel)/.personal-pre-commit-config.yml" ]]; then
+  # Repo specific pre-commit hooks.
+  personal_pre_commit_config_file="$(git rev-parse --show-toplevel)/.personal-pre-commit-config.yml"
+fi
+
+if [[ -f "${personal_pre_commit_config_file}" ]]; then
   # Global pre-commit hooks.
   HERE="$(cd "$(dirname "$0")" && pwd)"
   INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
-  ARGS=(hook-impl "--config=${HOME}/git/pre-commit-config.yaml" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
+  ARGS=(hook-impl "--config=${personal_pre_commit_config_file}" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
 
   if [ -x "$INSTALL_PYTHON" ]; then
-    exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
+    "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
+    pre_commit_rc=${?}
   elif command -v pre-commit >/dev/null; then
-    exec pre-commit "${ARGS[@]}"
+    pre-commit "${ARGS[@]}"
+    pre_commit_rc=${?}
   else
-    echo '`pre-commit` not found.  Did you forget to activate your virtualenv?' 1>&2
+    echo '`pre-commit` not found!' 1>&2
     exit 1
   fi
 fi
 
+if [[ ${pre_commit_rc} != 0 ]]; then
+  exit ${pre_commit_rc}
+fi
 # pre-commit framework hooks.
 if [[ -f "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml" ]]; then
   HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -30,13 +42,18 @@ if [[ -f "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml" ]]; then
   ARGS=(hook-impl "--config=.pre-commit-config.yaml" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
 
   if [ -x "$INSTALL_PYTHON" ]; then
-    exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
+    "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
+    pre_commit_rc=${?}
   elif command -v pre-commit >/dev/null; then
-    exec pre-commit "${ARGS[@]}"
+    pre-commit "${ARGS[@]}"
+    pre_commit_rc=${?}
   else
     echo '`pre-commit` not found.  Did you forget to activate your virtualenv?' 1>&2
     exit 1
   fi
+fi
+if [[ ${pre_commit_rc} != 0 ]]; then
+  exit ${pre_commit_rc}
 fi
 
 # If you want to allow non-ascii filenames set this variable to true.
