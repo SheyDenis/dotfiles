@@ -7,37 +7,36 @@ else
   against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-if [[ -f "${HOME}/git/pre-commit-config.yaml" ]]; then
-  # Global pre-commit hooks.
-  HERE="$(cd "$(dirname "$0")" && pwd)"
-  INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
-  ARGS=(hook-impl "--config=${HOME}/git/pre-commit-config.yaml" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
+declare -a pre_commit_configs=(
+  "${HOME}/git/pre-commit-config.yaml"                               # Global pre-commit hooks.
+  "$(git rev-parse --show-toplevel)/.personal-pre-commit-config.yml" # Personal repo specific pre-commit hooks.
+  "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml"         # pre-commit framework hooks.
+)
+for pre_commit_config_file in ${pre_commit_configs[*]}; do
+  if [[ -f "${pre_commit_config_file}" ]]; then
+    HERE="$(cd "$(dirname "$0")" && pwd)"
+    INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
+    ARGS=(hook-impl "--config=${pre_commit_config_file}" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
 
-  if [ -x "$INSTALL_PYTHON" ]; then
-    exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
-  elif command -v pre-commit >/dev/null; then
-    exec pre-commit "${ARGS[@]}"
-  else
-    echo '`pre-commit` not found.  Did you forget to activate your virtualenv?' 1>&2
-    exit 1
+    pre_commit_rc=1
+    if [ -x "$INSTALL_PYTHON" ]; then
+      "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
+      pre_commit_rc=${?}
+    elif command -v pre-commit >/dev/null; then
+      pre-commit "${ARGS[@]}"
+      pre_commit_rc=${?}
+    else
+      echo '`pre-commit` not found!' 1>&2
+      exit 1
+    fi
+
+    if [[ ${pre_commit_rc} != 0 ]]; then
+      echo "pre-commit failed with config file [${pre_commit_config_file}]" 1>&2
+      exit ${pre_commit_rc}
+    fi
+
   fi
-fi
-
-# pre-commit framework hooks.
-if [[ -f "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml" ]]; then
-  HERE="$(cd "$(dirname "$0")" && pwd)"
-  INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
-  ARGS=(hook-impl "--config=.pre-commit-config.yaml" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
-
-  if [ -x "$INSTALL_PYTHON" ]; then
-    exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
-  elif command -v pre-commit >/dev/null; then
-    exec pre-commit "${ARGS[@]}"
-  else
-    echo '`pre-commit` not found.  Did you forget to activate your virtualenv?' 1>&2
-    exit 1
-  fi
-fi
+done
 
 # If you want to allow non-ascii filenames set this variable to true.
 allownonascii=$(git config hooks.allownonascii)
