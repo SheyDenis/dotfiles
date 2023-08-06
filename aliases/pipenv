@@ -1,4 +1,4 @@
 # pipenv aliases
 
-alias pipenv-clean-env='pipenv --venv && yes | pip3 uninstall $(pip3 list installed | tail +2 | grep -E "^[a-zA-Z]" | grep -oE "^[^[:space:]]+" | grep -vE "^(pip|setuptools|six|wheel)$" | tr "\n" " ") && pip3 list installed'
+alias pipenv-clean-env='pipenv --venv && yes | pipenv run pip3 uninstall $(pipenv run pip3 list installed | tail +2 | grep -E "^[a-zA-Z]" | grep -oE "^[^[:space:]]+" | grep -vE "^(pip|setuptools|six|wheel)$" | tr "\n" " ") && pipenv run pip3 list installed'
 alias pipenv-refresh-env='pipenv-clean-env && pipenv sync --dev'

@@ -11,4 +11,4 @@ else
     alias git-confirm-clear-gone='false'
 fi
 
-alias git-clear-gone='git-confirm-clear-gone && echo -e "\n" ; [[ "${RES_}" =~ ^[Yy]$ ]] && echo "Clearing gone branches" && for b in $(git-list-gone); do git branch -D "${b}"; done ; echo "Remaining branches:" git branch -a | cat --'
+alias git-clear-gone='git-confirm-clear-gone && echo -e "\n" ; [[ "${RES_}" =~ ^[Yy]$ ]] && echo "Clearing gone branches" && for b in $(git-list-gone); do git branch -D "${b}"; done ; echo "Remaining branches:" ; git branch -a | cat --'
