@@ -37,7 +37,7 @@ complete -c man which whereis
 
 # MOTD
 #cat /etc/MOTD
-fortune -a -n 160
+fortune -a -n 40
 
 export HISTSIZE=100000
 export HISTFILESIZE=$HISTSIZE
@@ -48,3 +48,4 @@ shopt -s histappend
 set -o noclobber
 
 export PIPENV_VENV_IN_PROJECT=1
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"

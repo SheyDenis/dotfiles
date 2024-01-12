@@ -113,5 +113,6 @@
     "git.alwaysShowStagedChangesResourceGroup": true,
     "highlight.decorations": {
         "rangeBehavior": 3
-    }
+    },
+    "redhat.telemetry.enabled": false
 }
