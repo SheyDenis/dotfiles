@@ -17,5 +17,10 @@ repos:
     rev: 0.2.3
     hooks:
       - id: dev-marker-hook
+      - id: isort-hook
       - id: line-endings-hook
+      - id: mypy-hook
+      - id: pylint-hook
       - id: symbolic-links-hook
+      - id: xenon-hook
+      - id: yapf-hook
