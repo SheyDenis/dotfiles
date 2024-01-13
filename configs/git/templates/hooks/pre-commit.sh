@@ -8,9 +8,9 @@ else
 fi
 
 declare -a pre_commit_configs=(
-  "${HOME}/git/pre-commit-config.yaml"                               # Global pre-commit hooks.
-  "$(git rev-parse --show-toplevel)/.personal-pre-commit-config.yml" # Personal repo specific pre-commit hooks.
   "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml"         # pre-commit framework hooks.
+  "$(git rev-parse --show-toplevel)/.personal-pre-commit-config.yml" # Personal repo specific pre-commit hooks.
+  "${HOME}/git/pre-commit-config.yaml"                               # Global pre-commit hooks.
 )
 for pre_commit_config_file in ${pre_commit_configs[*]}; do
   if [[ -f "${pre_commit_config_file}" ]]; then

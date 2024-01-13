@@ -1,0 +1,108 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+
+
+# Global properties
+separator=true
+separator_block_width=15
+
+[temperature]
+command=$SCRIPT_DIR/temperature
+label=TEMP:
+interval=10
+#T_WARN=70
+#T_CRIT=90
+SENSOR_CHIP="k10temp-pci-00c3"
+
+[nm-vpn]
+command=$SCRIPT_DIR/nm-vpn
+#init_color=#FFFF00
+#on_color=#00FF00
+label=VPN:
+interval=5
+
+[bandwidth]
+command=$SCRIPT_DIR/bandwidth
+interval=5
+INTERFACE=eno1
+#INLABEL=IN
+#OUTLABEL=OUT
+#TREAT_UNKNOWN_AS_UP=0
+
+[cpu_usage]
+command=$SCRIPT_DIR/cpu_usage
+interval=10
+LABEL=CPU:
+min_width=CPU: 100.00%
+T_WARN=80
+#T_CRIT=80
+#DECIMALS=2
+#COLOR_NORMAL=#EBDBB2
+#COLOR_WARN=#FFFC00
+#COLOR_CRIT=#FF0000
+
+[load_average]
+command=$SCRIPT_DIR/load_average
+interval=10
+
+[memory]
+command=$SCRIPT_DIR/memory
+label=MEM:
+interval=30
+
+#[memory]
+#command=$SCRIPT_DIR/memory
+#label=SWAP
+#instance=swap
+#interval=30
+
+[disk]
+command=$SCRIPT_DIR/disk
+LABEL=HOME:
+#DIR=$HOME
+#ALERT_LOW=10
+interval=30
+
+[disk-io]
+command=$SCRIPT_DIR/disk-io
+#command=$SCRIPT_DIR/disk-io -w 3 -M -P 0
+interval=persist
+markup=pango
+LABEL=
+#instance=/^sda/
+#DT=5
+#MB_ONLY=0 #0 or 1
+#KB_ONLY=0 #0 or 1
+#WIDTH=4
+#MB_PRECISION=1
+#KB_PRECISION=0
+#REGEX=/^(s|h)d[a-zA-Z]+/
+#THRESHOLD=0
+#WARN_COLOR="#FF0000"
+#SEPARATOR=/
+#PREFIX=
+#SUFFIX="B/s"
+
+[keyboard_layout]
+#command=$SCRIPT_DIR/key_layout
+command=$SCRIPT_DIR/keyboard_layout
+#command=setxkbmap -query | grep 'layout' | cut -d':' -f2 | tr -d ' '
+#label=Layout
+interval=1
+
+[time]
+command=date '+%a 1%Y-%m-%d %H:%M:%S'
+interval=1
+
+#[calendar]
+#command=$SCRIPT_DIR/calendar
+#interval=1
+#LABEL=
+#DATEFMT=+1%Y-%m-%d %H:%M:%S
+## SHORTFMT=+%H:%M:%S
+#HEIGHT=180
+#WIDTH=220

@@ -21,6 +21,3 @@ General dotfiles that will be copied over (or linked to by) other dotfiles.
 Files containing shell functions.
 
 ### TODO
-
-- [ ] Add JetBrains settings.
-- [ ] Refactor `pre-commit.sh` to check for a local `.personal-pre-commit-config.yml` instead of a global one.
