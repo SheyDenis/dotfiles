@@ -7,6 +7,13 @@ else
   against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
+if [[ -f "$(git rev-parse --show-toplevel)/.env" ]]; then
+  echo "Found .env file in project"
+  . "$(git rev-parse --show-toplevel)/.env"
+  export SKIP="${SKIP}"
+  echo "skip: [${SKIP}]"
+fi
+
 declare -a pre_commit_configs=(
   "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml"         # pre-commit framework hooks.
   "$(git rev-parse --show-toplevel)/.personal-pre-commit-config.yml" # Personal repo specific pre-commit hooks.
