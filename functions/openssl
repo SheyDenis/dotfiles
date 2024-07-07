@@ -1,0 +1,17 @@
+# openssl functions
+
+function openssl-download-server-certificate() {
+    HOST="${1}"
+    PORT="${2:-443}"
+    openssl s_client -connect ${HOST}:${PORT} -showcerts < /dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' >> "${HOST#https://}.pem"
+}
+
+function openssl-show-certificate() {
+    CERT_PATH="${1}"
+    openssl x509 -in "${CERT_PATH}" -text
+}
+
+function openssl-show-certificate-chain() {
+    CERT_PATH="${1}"
+    openssl crl2pkcs7 -nocrl -certfile "${CERT_PATH}" | openssl pkcs7 -print_certs ${2}
+}

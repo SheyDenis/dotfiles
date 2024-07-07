@@ -12,6 +12,11 @@ declare -a pre_commit_configs=(
   "$(git rev-parse --show-toplevel)/.personal-pre-commit-config.yml" # Personal repo specific pre-commit hooks.
   "${HOME}/git/pre-commit-config.yaml"                               # Global pre-commit hooks.
 )
+if [[ -f "$(git rev-parse --show-toplevel)/.env" ]]; then
+  # Source .env file if it exists, so we can add pre-commit env vars there. (e.g. SKIP=hook-name)
+  echo "Sourcing $(git rev-parse --show-toplevel)/.env"
+  . "$(git rev-parse --show-toplevel)/.env"
+fi
 for pre_commit_config_file in ${pre_commit_configs[*]}; do
   if [[ -f "${pre_commit_config_file}" ]]; then
     HERE="$(cd "$(dirname "$0")" && pwd)"
