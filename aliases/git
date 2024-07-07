@@ -7,7 +7,7 @@ if [[ "${SHELL##*/}" == "sh" ]]; then
 elif [[ "${SHELL##*/}" == "zsh" ]]; then
     alias git-confirm-clear-gone='echo -e "About to clear gone branches:\n\n$(git-list-gone)\n" ; read -q "RES_?Continue?"'
 else
-    echo "Unsupported shell [${SHELL}]"
+    echo "Unsupported shell [${SHELL}] when configuring git aliases"
     alias git-confirm-clear-gone='false'
 fi
 
