@@ -28,7 +28,7 @@ function blink() {
 
 function notify() {
     # cmd="display notification \"$@\""
-    cmd="display alert \"$@\""
+    cmd="display alert \"[rc=${?}] $@\""
     osascript -e ${cmd}
 }
 
