@@ -1,0 +1,134 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "cmd+i",
+        "command": "composerMode.agent"
+    },
+    {
+        "key": "shift+cmd+-",
+        "command": "-workbench.action.zoomOut"
+    },
+    {
+        "key": "shift+cmd+=",
+        "command": "-workbench.action.zoomIn"
+    },
+    {
+        "key": "shift+cmd+-",
+        "command": "editor.foldAll",
+        "when": "editorTextFocus && foldingEnabled"
+    },
+    {
+        "key": "cmd+r cmd+0",
+        "command": "-editor.foldAll",
+        "when": "editorTextFocus && foldingEnabled"
+    },
+    {
+        "key": "shift+cmd+=",
+        "command": "editor.unfoldAll",
+        "when": "editorTextFocus && foldingEnabled"
+    },
+    {
+        "key": "cmd+r cmd+j",
+        "command": "-editor.unfoldAll",
+        "when": "editorTextFocus && foldingEnabled"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.selectTheme"
+    },
+    {
+        "key": "cmd+1",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled && !explorerViewletFocus"
+    },
+    {
+        "key": "cmd+1",
+        "command": "-workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled && !explorerViewletFocus"
+    },
+    {
+        "key": "cmd+1",
+        "command": "-workbench.action.toggleSidebarVisibility",
+        "when": "explorerViewletFocus"
+    },
+    {
+        "key": "cmd+1",
+        "command": "workbench.action.focusFirstEditorGroup",
+        "when": "explorerViewletFocus"
+    },
+    {
+        "key": "cmd+1",
+        "command": "-workbench.action.focusFirstEditorGroup"
+    },
+    {
+        "key": "shift+f11",
+        "command": "bookmarks.listFromAllFiles",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+k",
+        "command": "-bookmarks.toggle",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "f11",
+        "command": "bookmarks.toggle",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+f11",
+        "command": "bookmarks.toggleLabeled",
+        "when": "editorTextFocus"
+    },
+    // Make up and down cycle through search results in `Shift+Ctrl+F` instead of search history
+    // ref: https://github.com/microsoft/vscode/issues/78655
+    {
+        "key": "down",
+        "command": "-history.showNext"
+    },
+    {
+        "key": "up",
+        "command": "-history.showPrevious"
+    },
+    {
+        "key": "up",
+        "command": "search.focus.previousInputBox",
+        "when": "inputBoxFocus && searchViewletVisible"
+    },
+    {
+        "key": "down",
+        "command": "search.focus.nextInputBox",
+        "when": "inputBoxFocus && searchViewletVisible"
+    },
+    {
+        "key": "up",
+        "command": "search.focus.previousInputBox",
+        "when": "firstMatchFocus && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+up",
+        "command": "search.focus.previousInputBox",
+        "when": "searchViewletVisible"
+    },
+    // fold and unfold
+    //  note: usually when I fold I want to fold all, but when I unfold I want to unfold recursively
+    //  so I added for now only the unfold and kept fold commented
+    {
+        "key": "cmd+=",
+        "command": "editor.unfoldRecursively",
+        "when": "editorTextFocus && foldingEnabled"
+    },
+    {
+        "key": "cmd+-",
+        "command": "editor.foldRecursively",
+        "when": "editorTextFocus && foldingEnabled"
+    },
+    // from anywhere, focus on editor without closing the panes
+    // if I remove the when, then also when cmd+b in a method, I can't return
+    // so I manually set a few common use cases
+    {
+        "key": "escape",
+        "command": "workbench.action.focusFirstEditorGroup",
+        "when": "explorerViewletFocus || terminalFocus || agentsPaneFocused"
+    }
+]

@@ -1,0 +1,12 @@
+{
+	"dl": {
+		"prefix": "dl",
+		"scope": "go",
+		"body": "fmt.Printf(\"[DEBUG] ${1}: [%#v]\n\", ${1}) // DEV MARKER - REMOVE THIS"
+	},
+	"dlt": {
+		"prefix": "dlt",
+		"scope": "go",
+		"body": "fmt.Printf(\"[DEBUG] ${1}\n\") // DEV MARKER - REMOVE THIS"
+	}
+}
