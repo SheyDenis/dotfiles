@@ -1,0 +1,53 @@
+{
+    "window.commandCenter": true,
+    "go.inlayHints.constantValues": true,
+    "go.inlayHints.compositeLiteralFields": true,
+    "go.inlayHints.assignVariableTypes": true,
+    "go.inlayHints.ignoredError": true,
+    "go.lintTool": "golint",
+    "go.playground": {
+        "openbrowser": false,
+        "share": false,
+        "run": false
+    },
+    "go.toolsEnvVars": {
+        "GOPRIVATE": "<GOPRIVATE_VALUE_HERE>",
+        "GOROOT": "~/go/sdk/go1.24.6"
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.colorTheme": "Dracula Theme",
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "editor.fontFamily": "'JetBrains Mono'",
+    "files.autoSave": "onWindowChange",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.renderWhitespace": "all",
+    "go.editorContextMenuCommands": {
+        "playground": false
+    },
+    "go.survey.prompt": false,
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.composer.textSizeScale": 0.85,
+    "editor.dragAndDrop": false,
+    "workbench.editor.dragToOpenWindow": false,
+    "search.quickOpen.includeSymbols": true,
+    "search.searchEditor.focusResultsOnSearch": true,
+    "search.showLineNumbers": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "todo-tree.highlights.useColourScheme": true,
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]",
+        "DEV MARKER"
+    ],
+    "cursor.composer.usageSummaryDisplay": "always",
+    "search.mode": "view",
+    "editor.indentSize": "tabSize",
+    "partialDiff.enableTelemetry": false
+}
