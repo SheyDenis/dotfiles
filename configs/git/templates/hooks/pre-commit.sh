@@ -7,10 +7,18 @@ else
   against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+if [[ -f "${REPO_ROOT}/.env" ]]; then
+  source "${REPO_ROOT}/.env"
+fi
+HERE="$(cd "$(dirname "$0")" && pwd)"
+INSTALL_PYTHON="${REPO_ROOT}/.venv/bin/python"
+
 declare -a pre_commit_configs=(
-  "$(git rev-parse --show-toplevel)/.pre-commit-config.yaml"         # pre-commit framework hooks.
-  "$(git rev-parse --show-toplevel)/.personal-pre-commit-config.yml" # Personal repo specific pre-commit hooks.
-  "${HOME}/git/pre-commit-config.yaml"                               # Global pre-commit hooks.
+  "${REPO_ROOT}/.pre-commit-config.yaml"         # pre-commit framework hooks.
+  "${REPO_ROOT}/.personal-pre-commit-config.yml" # Personal repo specific pre-commit hooks.
+  "${HOME}/git/pre-commit-config.yaml"           # Global pre-commit hooks.
 )
 if [[ -f "$(git rev-parse --show-toplevel)/.env" ]]; then
   # Source .env file if it exists, so we can add pre-commit env vars there. (e.g. SKIP=hook-name)
@@ -19,8 +27,6 @@ if [[ -f "$(git rev-parse --show-toplevel)/.env" ]]; then
 fi
 for pre_commit_config_file in ${pre_commit_configs[*]}; do
   if [[ -f "${pre_commit_config_file}" ]]; then
-    HERE="$(cd "$(dirname "$0")" && pwd)"
-    INSTALL_PYTHON="$(git rev-parse --show-toplevel)/.venv/bin/python"
     ARGS=(hook-impl "--config=${pre_commit_config_file}" "--hook-type=pre-commit" --hook-dir "$HERE" -- "$@")
 
     pre_commit_rc=1
