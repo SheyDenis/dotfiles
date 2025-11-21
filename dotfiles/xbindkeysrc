@@ -17,7 +17,7 @@
     b:8  # G4
 "xdotool key Return"
     b:9  # G5
-"xdotool key F5"
+"xdotool key Control+R"
     b:10  # G6
 "xdotool key Control+w"
     b:11  # G7
