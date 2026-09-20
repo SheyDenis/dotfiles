@@ -13,6 +13,8 @@ alias ls='ls --color=auto -hF'
 alias mv='mv -i'
 alias q='exit'
 alias rm='rm -i'
+alias unset-histfile='unset HISTFILE'
+alias xdg-open='XDG_CURRENT_DESKTOP=MATE xdg-open'
 
 # sudo aliases
 
