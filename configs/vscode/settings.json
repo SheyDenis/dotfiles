@@ -76,7 +76,7 @@
             ]
         }
     },
-    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorTheme": "Dark+",
     "editor.renderWhitespace": "trailing",
     "editor.tabCompletion": "on",
     "editor.tabSize": 2,
@@ -93,7 +93,7 @@
         "**/.venv": true
     },
     "update.mode": "none",
-    "extensions.autoUpdate": false,
+    "extensions.autoUpdate": "off",
     "terminal.integrated.altClickMovesCursor": false,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.defaultProfile.linux": "bash",
