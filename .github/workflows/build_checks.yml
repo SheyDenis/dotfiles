@@ -16,15 +16,13 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5.0.0
+      - uses: actions/setup-python@v7.0.0
         with:
-          python-version: '3.11'
-      - name: PrepareEnv
-        run: python -mpip install pipenv
+          python-version: '3.14'
       - name: Install Dependencies
-        run: pipenv sync --dev
+        run: poetry install
       - name: Check Tag Is New
         run: '[[ -z $(git tag -l | grep -E "^$(cat VERSION)$") ]]'
