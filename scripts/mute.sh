@@ -1,18 +1,19 @@
 #!/bin/bash
 
-# Sets every ALSA control (amixer controls) to 0% and off, i.e. mutes all audio.
+# Mutes the default ALSA card: sets every "Playback Volume" control to 0% and every "Playback Switch" control off.
+# Capture and other controls are left untouched.
 # Usage: ./mute.sh   (needs amixer)
 
 echo "$(date) - Starting $0"
 
-OIFS=$IFS
-IFS=$'\n'
 sleep 1s
 
-for control in $(amixer controls); do
-	numid="$(echo $control | grep -o 'numid=[0-9]\+' | grep -o '[0-9]\+')"
-	amixer cset numid=${numid} 0% off
-done
+while IFS= read -r control; do
+	numid="$(grep -o 'numid=[0-9]\+' <<< "${control}" | grep -o '[0-9]\+')"
+	case "${control}" in
+	*"Playback Volume'") amixer cset numid="${numid}" 0% ;;
+	*"Playback Switch'") amixer cset numid="${numid}" off ;;
+	esac
+done < <(amixer controls)
 
-IFS=$OIFS
 echo "Done $0"

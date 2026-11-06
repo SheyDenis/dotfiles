@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Keeps only the currently active output, as primary, at the chosen resolution, and turns all other outputs off.
 # Usage: ./only_primary.sh [32-9|21-9]   (default 32-9 = 5120x1440, 21-9 = 3440x1440; needs xrandr)
@@ -41,15 +41,21 @@ ACTIVE_OUTPUT="$(xrandr --listmonitors | tail -1 | grep -Eo '[a-zA-Z]+-[[:digit:
 
 echo "ACTIVE_OUTPUT: ${ACTIVE_OUTPUT}"
 
+# Without an active output every output would be turned off, leaving no display.
+if [[ -z "${ACTIVE_OUTPUT}" ]]; then
+  echo "No active output found, aborting."
+  exit 1
+fi
+
 declare -a XRANDR_OUTPUTS
 
 for output in $(xrandr --current | tail -n +2 | grep -Eo '^[a-zA-Z]+-[^[:space:]]+'); do
   if [[ "${output}" == "${ACTIVE_OUTPUT}" ]]; then
-    XRANDR_OUTPUTS=(${XRANDR_OUTPUTS[@]} "--output ${ACTIVE_OUTPUT} --primary --mode ${XRANDR_MODE} --pos 0x0 --rotate normal")
+    XRANDR_OUTPUTS+=(--output "${ACTIVE_OUTPUT}" --primary --mode "${XRANDR_MODE}" --pos 0x0 --rotate normal)
   else
-    XRANDR_OUTPUTS=(${XRANDR_OUTPUTS[@]} "--output ${output} --off")
+    XRANDR_OUTPUTS+=(--output "${output}" --off)
   fi
 done
 
 echo "XRANDR_OUTPUTS: ${XRANDR_OUTPUTS[*]}"
-xrandr ${XRANDR_OUTPUTS[*]}
+xrandr "${XRANDR_OUTPUTS[@]}"
