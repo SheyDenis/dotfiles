@@ -20,4 +20,11 @@ General dotfiles that will be copied over (or linked to by) other dotfiles.
 
 Files containing shell functions.
 
+### scripts
+
+Standalone helper scripts (volume, screen locking, battery/disk monitors, status bar helpers, etc.).
+Each script starts with a comment describing what it does and how to use it.
+
+- `screenlayout/` - xrandr scripts for switching to a single-monitor layout.
+
 ### TODO
